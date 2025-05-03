@@ -1,0 +1,23 @@
+:root{
+  --cinza: #DBDDE6;
+  --branco-claro: #FBFCFF;
+  --gelo: #F3F6FF;
+  --azulzinho: #2C3DDC;
+  --azul-claro: #3D4BCD;
+  --azul: #2737C7;
+  --azul-escuro: #1F2C9F;
+  --preto-azulado: #000217;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F3F6FF;
+  min-height: 100vh;
+}
+

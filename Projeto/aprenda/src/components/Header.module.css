@@ -1,0 +1,71 @@
+/* HEADER - Mantido como estava, com flex para alinhamento e altura definida */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--azul-escuro);
+  padding: clamp(10px, 2vh, 20px) clamp(20px, 4vw, 40px);
+  color: var(--gelo);
+  position: fixed; /* Mantido para fixar no topo da página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(60px, 10vw, 75px);
+  z-index: 10;
+  flex-wrap: wrap; 
+}
+
+.logo {
+  height: clamp(20px, 5vw, 35px); 
+}
+
+.botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(10px, 2vw, 20px);
+  flex-wrap: wrap;
+}
+
+.btnLogin {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--gelo);
+  font-size: clamp(10px, 2vw, 14px);  
+  height: clamp(25px, 5vw, 40px);  
+  width: clamp(80px, 20vw, 150px);  
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.btnLogin:hover {
+  border-color: var(--gelo);
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.btnCadastro {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: var(--azulzinho);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);  
+  height: clamp(25px, 5vw, 40px);  
+  width: clamp(90px, 22vw, 175px);  
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.btnCadastro:hover {
+  background-color: #1f2dbf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
