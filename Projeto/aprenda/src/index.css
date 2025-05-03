@@ -21,3 +21,27 @@ body {
   min-height: 100vh;
 }
 
+.container{
+  max-width: 1400px; 
+  margin: 0 auto; 
+  min-height: 100vh;
+  margin-top: 75px;
+}
+
+@media (min-width: 751px) {
+  .container{
+      margin-top: 75px;
+  }
+}
+
+@media (max-width: 750px) {
+  .container{
+      margin-top: 10vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .container{
+      margin-top: 60px;
+  }
+}

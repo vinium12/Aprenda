@@ -1,5 +1,5 @@
 /* HEADER - Mantido como estava, com flex para alinhamento e altura definida */
-header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
