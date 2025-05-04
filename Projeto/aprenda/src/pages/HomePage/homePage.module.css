@@ -1,141 +1,310 @@
-
 .body {
-    font-family: "Montserrat", sans-serif;
-    margin-top:  clamp(60px, 10vw, 75px);;
+  font-family: "Montserrat", sans-serif;
+  margin-top: clamp(60px, 10vw, 75px);
 }
 
-
 .baner {
-    background-color: #1F2C9F;
-    color: white;
-    padding: 48px 16px;
-    margin-top: 70px;
+  background-color: #1f2c9f;
+  color: white;
+  padding: 48px 16px;
+  margin-top: 70px;
 }
 
 .banerContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 32px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .banerTexto {
-    max-width: 560px;
-    
+  max-width: 560px;
 }
 
-.banerTexto  h1 {
-    font-size: 40px;
-    padding-bottom: 15px;
+.banerTexto h1 {
+  font-size: 40px;
+  padding-bottom: 15px;
 }
-.banerTexto  p {
-    font-size: 24px;
-    padding-bottom: 15px;
+.banerTexto p {
+  font-size: 24px;
+  padding-bottom: 15px;
 }
 .banerImage {
-    border-radius: 16px;
-    max-width: 100%;
-    height: auto;
+  border-radius: 16px;
+  max-width: 100%;
+  height: auto;
 }
 
 .banerBotao {
-    padding: 12px 24px;
-    background-color: #2737C7;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px 24px;
+  background-color: #2737c7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .banerBotao:hover {
-    background-color: #3b5bdb;
+  background-color: #3b5bdb;
 }
 .sobre {
-    width: 100%;
-    padding: 0;
-    margin-top: 3px;
-  }
-  
-  .sobreContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: auto;
-  }
-  
-  .imgWrapper {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .imgSobre {
-    display: block;
-  }
-  
-  .sobreTexto {
-    flex: 1;
-    padding: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;   
-    text-align: center;
-  }
-  
-  .sobreTexto h2 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 25px;
-  }
-  
-  .sobreTexto p {
-    font-size: 25px;
-    line-height: 24px;
-    color: #333;
-  }
-  
-.beneficios {
-    text-align: center;
-    padding: 48px 16px;
+  width: 100%;
+  padding: 0;
 }
 
+.sobreContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+}
+
+.imgWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.imgSobre {
+  display: block;
+}
+
+.sobreTexto {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.sobreTexto h2 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.sobreTexto p {
+  font-size: 25px;
+  line-height: 24px;
+  color: #333;
+}
+
+.beneficios {
+  text-align: center;
+  padding: 48px 16px;
+}
 .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-top: 32px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: white;
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 300px;
+  transition: transform 0.2s ease;
+}
+
+.iconeCard {
+  background-color: #2737c7;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 100%;
+}
+
+.iconeCard img {
+  width: 70px;
+  height: 70px;
+}
+
+.cardTexto {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.beneficios {
+  margin-bottom: 8px;
+  text-align: center;
+}
+.beneficios h2 {
+  margin-bottom: 8px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.beneficios p {
+  margin: 0 auto 8px;
+  font-size: 20px;
+  max-width: 580px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.cardTexto h3 {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cardTexto p {
+  padding-bottom: 0px;
+  font-size: 14px;
+  color: #333;
+}
+
+.ButtonCard {
+  padding: 8px 120px;
+  margin-top: 20px;
+  background-color: #2737c7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ButtonCard:hover {
+  background-color: #3b5bdb;
+}
+
+.funciona {
+  border-top: 4px solid #3b5bdb;
+  padding: 18px 16px;
+  text-align: center;
 }
 
 
-.funciona {
-    background-color: #f5f5f5;
-    padding: 48px 16px;
-    text-align: center;
+.funciona h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.funciona p {
+  font-size: 16px;
+  max-width: 400px;
+  margin: 0 auto 32px auto;
+}
+
+.conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  flex-wrap: wrap;
+  text-align: left;
 }
 
 .etapas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-top: 32px; 
+  counter-reset: passo;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
+.etapas li {
+  counter-increment: passo;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
 
+.etapas li::before {
+  content: counter(passo);
+  background-color: #2a37c7;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 48px;
+  margin-top: 4px;
+}
+
+.etapas li div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.etapas li h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.etapas li p {
+  margin: 0;
+  font-size: 15px;
+  color: #444;
+  max-width: 250px;
+}
+
+.imagemFunciona {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+}
 .chamadaFinal {
-    background-color: #2737C7;
-    color: white;
-    padding: 48px 16px;
-    text-align: center;
+  background-color: #2a37c7;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 48px 64px;
+  min-height: 380px;
+  text-align: left;
+}
+
+.chamadaFinal div {
+  max-width: 500px;
+}
+
+.chamadaFinal h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.chamadaFinal p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.banerBotao {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.banerBotao:hover {
+  background-color: white;
+  color: #2a37c7;
 }
