@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  const { token, perfilConfigurado, logout, setPerfilConfigurado } = useAuth(); 
+  const { token, perfilConfigurado, logout, setPerfilConfigurado } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('perfilConfigurado') === 'true') {
-      setPerfilConfigurado(true); 
+      setPerfilConfigurado(true);
     }
 
     if (token && perfilConfigurado && location.pathname === '/') {
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div>
-      <Header 
+      <Header
         isAuthenticated={!!token}
         onLogout={handleLogout}
         onConfigurarPerfil={handleConfigurarPerfil}
@@ -67,7 +67,7 @@ function App() {
         </Routes>
       </main>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

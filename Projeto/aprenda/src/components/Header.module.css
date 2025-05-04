@@ -1,4 +1,8 @@
 /* HEADER - Mantido como estava, com flex para alinhamento e altura definida */
+*{
+  margin: 0px;
+  padding: 0px;
+}
 .header {
   display: flex;
   align-items: center;

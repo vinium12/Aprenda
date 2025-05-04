@@ -1,35 +1,38 @@
-  .conteudo{
-    max-width: 1400px; 
-    margin: 0 auto; 
-    padding: 20px; 
-    min-height: 100vh;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.conteudo {
+  max-width: 1400px; 
+  margin: 0 auto; 
+  padding: 20px; 
+}/* O senhor david colocou um margin aqui sei la pra que eu tirei */
+
+/* Cores do tema */
+:root {
+  --azul-escuro: #1F2C9F;
+  --azulzinho: #007bff;
+  --gelo: #f1f1f1;
+  min-height: 100vh;
+}
+
+/* Responsividade */
+@media (min-width: 751px) {
+  .conteudo {
     margin-top: 75px;
   }
-  :root {
-    --azul-escuro: #001f3f;
-    --azulzinho: #007bff;
-    --gelo: #f1f1f1;
-    max-width: 1400px; 
-    margin: 0 auto; 
-    padding: 20px; 
-    min-height: 100vh;
-    margin-top: 100px;
+}
+
+@media (max-width: 750px) {
+  .conteudo {
+    margin-top: 10vw;
   }
-  
-  @media (min-width: 751px) {
-    .conteudo{
-        margin-top: 75px;
-    }
+}
+
+@media (max-width: 600px) {
+  .conteudo {
+    margin-top: 60px;
   }
-  
-  @media (max-width: 750px) {
-    .conteudo{
-        margin-top: 10vw;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .conteudo{
-        margin-top: 60px;
-    }
-  }
+}

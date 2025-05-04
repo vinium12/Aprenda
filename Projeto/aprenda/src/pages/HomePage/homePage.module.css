@@ -1,0 +1,142 @@
+*{
+    font-family: "Montserrat", sans-serif;
+}
+.homePage {
+    font-family: Arial, sans-serif;
+}
+
+
+.baner {
+    background-color: #1F2C9F;
+    color: white;
+    padding: 48px 16px;
+    margin-top: 70px;
+}
+
+.banerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.banerTexto {
+    max-width: 560px;
+    
+}
+
+.banerTexto  h1 {
+    font-size: 40px;
+    padding-bottom: 15px;
+}
+.banerTexto  p {
+    font-size: 24px;
+    padding-bottom: 15px;
+}
+.banerImage {
+    border-radius: 16px;
+    max-width: 100%;
+    height: auto;
+}
+
+.banerBotao {
+    padding: 12px 24px;
+    background-color: #2737C7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.banerBotao:hover {
+    background-color: #3b5bdb;
+}
+.sobre {
+    width: 100%;
+    padding: 0;
+    margin-top: 3px;
+  }
+  
+  .sobreContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+  }
+  
+  .imgWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .imgSobre {
+    display: block;
+  }
+  
+  .sobreTexto {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+    text-align: center;
+  }
+  
+  .sobreTexto h2 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+  
+  .sobreTexto p {
+    font-size: 25px;
+    line-height: 24px;
+    color: #333;
+  }
+  
+.beneficios {
+    text-align: center;
+    padding: 48px 16px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: white;
+}
+
+
+.funciona {
+    background-color: #f5f5f5;
+    padding: 48px 16px;
+    text-align: center;
+}
+
+.etapas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 32px; 
+}
+
+
+.chamadaFinal {
+    background-color: #2737C7;
+    color: white;
+    padding: 48px 16px;
+    text-align: center;
+}
