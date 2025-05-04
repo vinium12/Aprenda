@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+main{
+  min-height: 100vh;
+}
+
 .conteudo {
   max-width: 1400px; 
   margin: 0 auto; 

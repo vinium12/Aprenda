@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import * as Yup from 'yup';
+import styles from './Cadastro.module.css'
 
 function Cadastro() {
   const [etapa, setEtapa] = useState(1);
@@ -97,7 +98,7 @@ function Cadastro() {
   // codigo acima mudado
 
   return (
-    <div>
+    <div className={styles.body}>
       <h2>Cadastro</h2>
 
       {etapa === 1 && (

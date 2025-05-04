@@ -1,0 +1,39 @@
+.body{
+    margin-top:  clamp(60px, 10vw, 75px);;
+}
+.formulario {
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  justify-content: center;
+}
+
+.Esquerda {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: var(--gelo);
+  width: 40%;
+  background-color: var(--azul-escuro);
+  padding: 50px;
+  height: 50vh;
+  margin-bottom: 35px;
+}
+
+
+.Direita{
+    width: 60%;
+    height: 50vh;
+}
+
+.titulo {
+  font-weight: 800;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+.subtitulo {
+    margin: 0;
+}

@@ -4,8 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-import styles from './Login.module.css'
+import styles from './Login.module.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -44,8 +43,8 @@ function Login() {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div>
+    <form className={styles.Formulario} onSubmit={formik.handleSubmit} >
+      <div className={styles.classe}>
         <label>Email:</label>
         <input
           type="email"

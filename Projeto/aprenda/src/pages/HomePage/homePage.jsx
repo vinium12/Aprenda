@@ -3,7 +3,7 @@ import caraDosComputer from '../../assets/images/CaraDosComputer.svg';
 import ImgQuemSomos from '../../assets/images/ImagemQuemSomos.svg';
 const HomePage = () => {
   return (
-    <div className={styles.homePage}>
+    <div className={styles.body}>
 
       {/* Banner */}
       <section className={styles.baner}>

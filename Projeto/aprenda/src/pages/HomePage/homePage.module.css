@@ -1,8 +1,7 @@
-*{
+
+.body {
     font-family: "Montserrat", sans-serif;
-}
-.homePage {
-    font-family: Arial, sans-serif;
+    margin-top:  clamp(60px, 10vw, 75px);;
 }
 
 

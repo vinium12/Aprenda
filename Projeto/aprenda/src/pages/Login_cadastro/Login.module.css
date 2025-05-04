@@ -1,0 +1,3 @@
+.body{
+    margin-top: clamp(60px, 10vw, 75px);;    
+}

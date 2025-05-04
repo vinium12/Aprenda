@@ -10,12 +10,12 @@
   background-color: var(--azul-escuro);
   padding: clamp(10px, 2vh, 20px) clamp(20px, 4vw, 40px);
   color: var(--gelo);
-  position: fixed; /* Mantido para fixar no topo da página */
+  position: fixed;  
   top: 0;
-  left: 0;
+  left: 0;  
   width: 100%;
   height: clamp(60px, 10vw, 75px);
-  z-index: 10;
+  z-index: 10; 
   flex-wrap: wrap; 
 }
 
