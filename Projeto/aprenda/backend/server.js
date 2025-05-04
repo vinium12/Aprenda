@@ -1,12 +1,15 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const app = express();
 
 const SECRET = 'sua_chave_jwt_secreta';
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true // se estiver usando cookies ou sessões
+}));
 app.use(express.json());
 
 async function getDbConnection() {
@@ -30,23 +33,36 @@ function autenticarToken(req, res, next) {
   });
 }
 
+// codigo abaixo mudado
+
 app.post('/cadastro', async (req, res) => {
-  const { nome, sobrenome, email, senha, confirmacaoSenha, celular, data_nascimento, nome_usuario } = req.body;
+  try {
+    console.log('Requisição de cadastro recebida:', req.body);
+    const { nome, sobrenome, email, senha, confirmacaoSenha, celular, data_nascimento, nome_usuario } = req.body;
 
-  if (senha !== confirmacaoSenha) return res.status(400).send('Senhas não coincidem');
-  if (senha.length < 6) return res.status(400).send('Senha deve ter no mínimo 6 caracteres');
+    if (senha !== confirmacaoSenha) return res.status(400).send('Senhas não coincidem');
+    if (senha.length < 6) return res.status(400).send('Senha deve ter no mínimo 6 caracteres');
 
-  const db = await getDbConnection();
-  const [usuariosExistentes] = await db.query('SELECT id FROM usuarios WHERE email = ?', [email]);
-  if (usuariosExistentes.length > 0) return res.status(400).send('Email já cadastrado');
+    const db = await getDbConnection();
+    const [usuariosExistentes] = await db.query('SELECT id FROM usuarios WHERE email = ?', [email]);
+    if (usuariosExistentes.length > 0) return res.status(400).send('Email já cadastrado');
 
-  const hash = await bcrypt.hash(senha, 10);
-  const sql = 'INSERT INTO usuarios (nome, sobrenome, email, celular, data_nascimento, senha, nome_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db.query(sql, [nome, sobrenome, email, celular, data_nascimento, hash, nome_usuario], err => {
-    if (err) return res.status(500).send('Erro ao cadastrar');
-    res.sendStatus(201);
-  });
+    const hash = await bcrypt.hash(senha, 10);
+
+    // Aqui usamos `execute` com `  await`
+    await db.execute(
+      'INSERT INTO usuarios (nome, sobrenome, email, celular, data_nascimento, senha, nome_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [nome, sobrenome, email, celular, data_nascimento, hash, nome_usuario]
+    );
+    console.log('Usuário cadastrado com sucesso:', req.body);
+    return res.status(200).json({ mensagem: 'Usuário cadastrado com sucesso' });
+  } catch (err) {
+    console.error('Erro no cadastro:', err);
+    res.status(500).send('Erro interno ao cadastrar');
+  }
 });
+
+// codigo acima mudado
 
 app.post('/login', async (req, res) => {
   const { email, senha } = req.body;

@@ -5,6 +5,16 @@
     min-height: 100vh;
     margin-top: 75px;
   }
+  :root {
+    --azul-escuro: #001f3f;
+    --azulzinho: #007bff;
+    --gelo: #f1f1f1;
+    max-width: 1400px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    min-height: 100vh;
+    margin-top: 100px;
+  }
   
   @media (min-width: 751px) {
     .conteudo{
