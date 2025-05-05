@@ -99,69 +99,151 @@ function Cadastro() {
 
   return (
     <div className={styles.body}>
-      <h2>Cadastro</h2>
-
-      {etapa === 1 && (
-        <div>
-          <label>Email:</label>
-          <input type="email" name="email" value={dados.email} onChange={handleChange} />
-          {erros.email && <div style={{ color: 'red' }}>{erros.email}</div>}
-          <button onClick={handleNext}>Próximo</button>
+      <div className={styles.container}>
+        <div className={styles.rightPanel}>
+          <form className={styles.form}>
+            {etapa === 1 && (
+              <>
+                <img src="./src/assets/icons/Logo_Reduzida.svg" alt="Logo" className={styles.logo} />
+                <h2>Cadastro</h2>
+                <p>Seja bem-vindo! Comece agora sua jornada de aprendizado.</p>
+  
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Coloque seu Email"
+                  value={dados.email}
+                  onChange={handleChange}
+                />
+                {erros.email && <div className={styles.error}>{erros.email}</div>}
+  
+                <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
+              </>
+            )}
+  
+            {etapa === 2 && (
+              <>
+                <h2>Vamos lá!</h2>
+                <p>Crie sua conta e comece sua jornada de aprendizado.</p>
+  
+                <label>Nome:</label>
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Coloque seu Nome"
+                  value={dados.nome}
+                  onChange={handleChange}
+                />
+                {erros.nome && <div className={styles.error}>{erros.nome}</div>}
+  
+                <label>Sobrenome:</label>
+                <input
+                  type="text"
+                  name="sobrenome"
+                  placeholder="Coloque seu Sobrenome"
+                  value={dados.sobrenome}
+                  onChange={handleChange}
+                />
+                {erros.sobrenome && <div className={styles.error}>{erros.sobrenome}</div>}
+  
+                <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
+              </>
+            )}
+  
+            {etapa === 3 && (
+              <>
+                <h2>Falta pouco</h2>
+                <p>Crie sua conta e comece sua jornada de aprendizado.</p>
+  
+                <label>Celular:</label>
+                <input
+                  type="text"
+                  name="celular"
+                  placeholder="Coloque seu Telefone"
+                  value={dados.celular}
+                  onChange={handleChange}
+                />
+                {erros.celular && <div className={styles.error}>{erros.celular}</div>}
+  
+                <label>Data de Nascimento:</label>
+                <input
+                  type="date"
+                  name="nascimento"
+                  value={dados.nascimento}
+                  onChange={handleChange}
+                />
+                {erros.nascimento && <div className={styles.error}>{erros.nascimento}</div>}
+  
+                <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
+              </>
+            )}
+  
+            {etapa === 4 && (
+              <>
+                <h2>Quase lá!</h2>
+                <label>Senha:</label>
+                <input
+                  type="password"
+                  name="senha"
+                  placeholder="Coloque sua Senha"
+                  value={dados.senha}
+                  onChange={handleChange}
+                />
+                {erros.senha && <div className={styles.error}>{erros.senha}</div>}
+  
+                <label>Confirmar Senha:</label>
+                <input
+                  type="password"
+                  name="confirmarSenha"
+                  placeholder="Confirme sua Senha"
+                  value={dados.confirmarSenha}
+                  onChange={handleChange}
+                />
+                {erros.confirmarSenha && <div className={styles.error}>{erros.BotaoDeContinuar}</div>}
+  
+                <p>A senha deve conter:</p>
+                <ul>
+                  <li>8+ caracteres</li>
+                  <li>1 letra maiúscula</li>
+                  <li>1 letra minúscula</li>
+                </ul>
+  
+                <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
+              </>
+            )}
+  
+            {etapa === 5 && (
+              <>
+                <h2>Finalizando</h2>
+                <p>Escolha Como deseja ser chamado!</p>
+  
+                <label>Nome de Usuário:</label>
+                <input
+                  type="text"
+                  name="usuario"
+                  placeholder="Coloque Seu Nome de Usuário"
+                  value={dados.usuario}
+                  onChange={handleChange}
+                />
+                {erros.usuario && <div className={styles.error}>{erros.usuario}</div>}
+  
+                <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Finalizar</button>
+              </>
+            )}
+          </form>
         </div>
-      )}
 
-      {etapa === 2 && (
-        <div>
-          <label>Nome:</label>
-          <input type="text" name="nome" value={dados.nome} onChange={handleChange} />
-          {erros.nome && <div style={{ color: 'red' }}>{erros.nome}</div>}
-
-          <label>Sobrenome:</label>
-          <input type="text" name="sobrenome" value={dados.sobrenome} onChange={handleChange} />
-          {erros.sobrenome && <div style={{ color: 'red' }}>{erros.sobrenome}</div>}
-
-          <button onClick={handleNext}>Próximo</button>
+        <div className={styles.leftPanel}>
+          <img src="./public/AprendaLogo.svg" alt="Logo" className={styles.logo} />
+          <h2>Bem-vindo!</h2>
+          <p>Já tem uma conta? Faça o login e continue sua jornada de aprendizado.</p>
+          <button onClick={() => navigate("/login")}>Entrar</button>
+          <img src="./src/assets/images/Wave.svg" alt="Wave" className={styles.wave} />
         </div>
-      )}
-
-      {etapa === 3 && (
-        <div>
-          <label>Celular:</label>
-          <input type="text" name="celular" value={dados.celular} onChange={handleChange} />
-          {erros.celular && <div style={{ color: 'red' }}>{erros.celular}</div>}
-
-          <label>Data de Nascimento:</label>
-          <input type="date" name="nascimento" value={dados.nascimento} onChange={handleChange} />
-          {erros.nascimento && <div style={{ color: 'red' }}>{erros.nascimento}</div>}
-
-          <button onClick={handleNext}>Próximo</button>
-        </div>
-      )}
-
-      {etapa === 4 && (
-        <div>
-          <label>Senha:</label>
-          <input type="password" name="senha" value={dados.senha} onChange={handleChange} />
-          {erros.senha && <div style={{ color: 'red' }}>{erros.senha}</div>}
-
-          <label>Confirmar Senha:</label>
-          <input type="password" name="confirmarSenha" value={dados.confirmarSenha} onChange={handleChange} />
-          {erros.confirmarSenha && <div style={{ color: 'red' }}>{erros.confirmarSenha}</div>}
-
-          <button onClick={handleNext}>Próximo</button>
-        </div>
-      )}
-
-      {etapa === 5 && (
-        <div>
-          <label>Nome de Usuário:</label>
-          <input type="text" name="usuario" value={dados.usuario} onChange={handleChange} />
-          {erros.usuario && <div style={{ color: 'red' }}>{erros.usuario}</div>}
-          <button onClick={handleNext}>Cadastrar</button>
-        </div>
-      )}
+      </div>
     </div>
-  );
+  );  
 }
 
 export default Cadastro;
