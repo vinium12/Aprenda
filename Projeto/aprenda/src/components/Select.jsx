@@ -13,6 +13,7 @@ const Select = ({
 
       <select
         value={value}
+        className={styles.campo}
         onChange={(e) => {
           // Se resetOnChange for verdadeiro, a lógica de reset é chamada
           if (resetOnChange) {

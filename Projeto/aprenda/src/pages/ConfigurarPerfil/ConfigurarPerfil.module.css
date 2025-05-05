@@ -1,10 +1,26 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+main{
+  background-color: #F3F6FF;
+}
+
 .body{
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
     margin-top:  clamp(60px, 10vw, 75px);;
 }
-.formulario {
+
+.form{
   display: flex;
-  font-family: "Montserrat", sans-serif;
-  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  height: 80vh;
 }
 
 .Esquerda {
@@ -14,26 +30,109 @@
   align-items: center;
   justify-content: center;
   color: var(--gelo);
-  width: 40%;
-  background-color: var(--azul-escuro);
+  width: 40vw;
+  background-color: #2C3DDC;
+  border-radius: 10px  0px  0px 10px;
   padding: 50px;
-  height: 50vh;
-  margin-bottom: 35px;
+  height: 100%;
 }
 
-
 .Direita{
-    width: 60%;
-    height: 50vh;
+    background-color: #FBFCFF;
+    width: 50vw;
+    height: 100%;
+    padding: 15px;
+    color: #000217;
+    border-radius:  0px 10px 10px 10px;
 }
 
 .titulo {
   font-weight: 800;
   font-size: 2rem;
   margin-top: 30px;
-  margin-bottom: 0;
 }
 
-.subtitulo {
-    margin: 0;
+.filtros{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.bloco{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.btnHabilidades{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #2C3DDC;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);    
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  height: 30px;
+}
+
+.btnHabilidades:hover{
+  background-color: #1f2dbf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bloco textarea{
+  width: 100%;
+  height: 90px;
+  margin: 10px 0 ;
+  font-size: 15px;
+  border: 1px solid #E5E7EB;
+  border-radius: 3px;
+  padding: 5px;
+  resize: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+.habilidades{
+  display: flex;
+  gap: 20px;
+}
+
+.cabecalho{
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cabecalho p{
+  color: #ACAFB2;
+}
+
+.btnObjetivos{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);    
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  height: 30px;
+  background-color: #16A34A;
+}
+
+.btnObjetivos:hover{
+  background-color: #09932D;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

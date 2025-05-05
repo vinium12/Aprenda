@@ -1,6 +1,7 @@
 /* Exemplo básico de footer */
 footer {
   background-color: var(--azul-escuro);
+  font-family: "Montserrat", sans-serif;
   color: white;
   text-align: center;
   padding: clamp(15px, 3vw, 30px); /* padding responsivo */
