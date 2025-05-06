@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const app = express();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const SECRET = 'sua_chave_jwt_secreta';
 app.use(cors({
@@ -11,6 +14,7 @@ app.use(cors({
   credentials: true // se estiver usando cookies ou sessões
 }));
 app.use(express.json());
+app.use('/assets/images', express.static(path.join(__dirname, 'assets/images')));
 
 async function getDbConnection() {
   const db = await mysql.createConnection({
@@ -155,6 +159,92 @@ app.get('/subcategorias/:categoriaId', async (req, res) => {
   } catch (error) {
     console.error('Erro ao buscar subcategorias:', error);
     res.status(500).json({ erro: 'Erro ao buscar subcategorias' });
+  }
+});
+
+
+const uploadPath = path.join(__dirname, 'assets/images');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
+// Configuração do Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const nomeImagem = `usuario_${req.user.id}${ext}`;
+    cb(null, nomeImagem);
+  }
+});
+
+const upload = multer({ storage });
+
+// Rota exemplo para upload (proteja com autenticação como precisar)
+app.post('/upload-imagem', autenticarToken, upload.single('imagem'), async (req, res) => {
+  const db = await getDbConnection();
+  const imagemPath = `assets/images/${req.file.filename}`;
+
+  try {
+    await db.query('UPDATE usuarios SET imagem = ? WHERE id = ?', [imagemPath, req.user.id]);
+    res.json({ mensagem: 'Imagem enviada com sucesso', imagem: imagemPath });
+  } catch (err) {
+    console.error('Erro ao salvar imagem no banco:', err);
+    res.status(500).send('Erro ao salvar imagem');
+  }
+});
+
+app.get('/perfil', autenticarToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const db = await getDbConnection();
+
+    // 1. Dados do usuário
+    const [usuarioRows] = await db.query(
+      'SELECT id, nome, sobrenome, email, celular, data_nascimento, nome_usuario, perfil_configurado, imagem FROM usuarios WHERE id = ?',
+      [userId]
+    );
+    if (usuarioRows.length === 0) return res.status(404).json({ erro: 'Usuário não encontrado' });
+
+    const usuario = {
+      ...usuarioRows[0],
+      imagem_url: usuarioRows[0].imagem
+      ? `http://localhost:3001/${usuarioRows[0].imagem}`
+      : null    
+    };
+
+    // 2. Habilidades para ensinar
+    const [habilidades] = await db.query(
+      `SELECT h.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+       FROM habilidades h
+       JOIN categorias c ON h.categoria_id = c.id
+       LEFT JOIN subcategorias s ON h.subcategoria_id = s.id
+       WHERE h.usuario_id = ?`,
+      [userId]
+    );
+
+    // 3. Objetivos para aprender
+    const [objetivos] = await db.query(
+      `SELECT o.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+       FROM objetivos o
+       JOIN categorias c ON o.categoria_id = c.id
+       LEFT JOIN subcategorias s ON o.subcategoria_id = s.id
+       WHERE o.usuario_id = ?`,
+      [userId]
+    );
+
+    res.json({
+      usuario,
+      habilidades,
+      objetivos
+    });
+
+  } catch (error) {
+    console.error('Erro ao carregar perfil:', error);
+    res.status(500).json({ erro: 'Erro ao carregar perfil' });
   }
 });
 
