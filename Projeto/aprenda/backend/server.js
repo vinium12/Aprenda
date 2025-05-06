@@ -248,4 +248,60 @@ app.get('/perfil', autenticarToken, async (req, res) => {
   }
 });
 
+
+
+app.get('/usuarios-similares', autenticarToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const db = await getDbConnection();
+
+    // Buscar habilidades do usuário logado
+    const [habilidadesUsuario] = await db.query(
+      `SELECT h.categoria_id, h.subcategoria_id, h.nivel_abilidade 
+       FROM habilidades h 
+       WHERE h.usuario_id = ?`,
+      [userId]
+    );
+
+    // Buscar objetivos do usuário logado
+    const [objetivosUsuario] = await db.query(
+      `SELECT o.categoria_id, o.subcategoria_id, o.nivel_abilidade 
+       FROM objetivos o 
+       WHERE o.usuario_id = ?`,
+      [userId]
+    );
+
+    // Buscar usuários que têm habilidades e objetivos semelhantes
+    const similarUsuariosQuery = `
+      SELECT u.id, u.nome, u.sobrenome, u.imagem, u.nome_usuario
+      FROM usuarios u
+      JOIN habilidades h ON u.id = h.usuario_id
+      JOIN objetivos o ON u.id = o.usuario_id
+      WHERE 
+        (h.categoria_id IN (?) OR o.categoria_id IN (?))
+        AND (h.subcategoria_id IN (?) OR o.subcategoria_id IN (?))
+        AND (h.nivel_abilidade = o.nivel_abilidade)
+        AND u.id != ?
+    `;
+
+    // Extraindo IDs e subcategorias dos resultados
+    const categoriaIds = habilidadesUsuario.map(h => h.categoria_id);
+    const subcategoriaIds = habilidadesUsuario.map(h => h.subcategoria_id);
+
+    const [usuariosSimilares] = await db.query(similarUsuariosQuery, [
+      categoriaIds, categoriaIds,
+      subcategoriaIds, subcategoriaIds,
+      userId
+    ]);
+
+    // Respondendo com os dados dos usuários similares
+    res.json(usuariosSimilares);
+  } catch (error) {
+    console.error('Erro ao buscar usuários similares:', error);
+    res.status(500).json({ erro: 'Erro ao buscar usuários similares' });
+  }
+});
+
+
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'));

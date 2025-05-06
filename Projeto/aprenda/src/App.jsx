@@ -49,7 +49,7 @@ function App() {
     }
   }, [token, perfilConfigurado, setPerfilConfigurado, navigate, location]);
 
-  // Rota privada para autenticação
+  // Componente PrivateRoute ajustado
   function PrivateRoute({ element: Component, ...rest }) {
     return token ? <Component {...rest} /> : <Navigate to="/login" />;
   }
@@ -89,13 +89,13 @@ function App() {
           {/* Perfil do usuário (privada) */}
           <Route
             path="/perfil"
-            element={<PrivateRoute element={Perfil} />}
+            element={token ? <Perfil /> : <Navigate to="/login" />}
           />
 
           {/* Perfil de parceiros (privada) */}
           <Route
             path="/perfilparceiros"
-            element={<PrivateRoute element={PerfilParceiros} />}
+            element={token ? <PerfilParceiros /> : <Navigate to="/login" />}
           />
           
           {/* Rota 404 */}
