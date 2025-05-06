@@ -20,7 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `aprenda`
 --
+CREATE database `aprenda`;
 
+use `aprenda`;
 -- --------------------------------------------------------
 
 --
@@ -262,6 +264,9 @@ ALTER TABLE `objetivos`
 ALTER TABLE `subcategorias`
   ADD CONSTRAINT `fk_categoria_subcategoria` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+ALTER TABLE `usuarios`
+ADD COLUMN `imagem` VARCHAR(255) DEFAULT NULL AFTER `perfil_configurado`;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
