@@ -107,7 +107,7 @@ function Cadastro() {
               {etapa === 1 && (
                 <motion.div key="etapa1" {...transicao}>
                   <img src="./src/assets/icons/Logo_Reduzida.svg" alt="Logo" className={styles.logo} />
-                  <h2>Cadastro</h2>
+                  <h2>Cadastre-se</h2>
                   <p>Seja bem-vindo! Comece agora sua jornada de aprendizado.</p>
 
                   <label>Email:</label>
@@ -118,13 +118,14 @@ function Cadastro() {
                     value={dados.email}
                     onChange={handleChange}
                   />
+                  {erros.email && <div className={styles.error}>{erros.email}</div>}
 
                   <p className={styles.ou}>ou</p>
                   <button type="button" className={styles.googleButton}>
                     <img src="./src/assets/icons/google-icon.svg" alt="Google icon" width="20" className={styles.googleImg}/>
                     Entrar com Google
                   </button>
-                  {erros.email && <div className={styles.error}>{erros.email}</div>}
+                  
 
                   <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
                 </motion.div>
