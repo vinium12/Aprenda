@@ -7,9 +7,12 @@ import ConfigurarPerfil from "./pages/ConfigurarPerfil/ConfigurarPerfil";
 import HomePosLogin from "./pages/HomePosLogin/HomePosLogin";
 import HomePage from "./pages/HomePage/homePage";
 import Perfil from "./pages/Perfil/Perfil";
+import PerfilParceiros from "./pages/Perfil/PerfilParceiros";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
+
+const PERFIL_KEY = 'perfilConfigurado';
 
 function App() {
   const { token, perfilConfigurado, logout, setPerfilConfigurado } = useAuth();
@@ -25,24 +28,31 @@ function App() {
     navigate('/perfil');
   };
 
+  // Gerencia o status do perfil configurado no localStorage
   useEffect(() => {
     if (perfilConfigurado) {
-      localStorage.setItem('perfilConfigurado', 'true');
+      localStorage.setItem(PERFIL_KEY, 'true');
     } else {
-      localStorage.removeItem('perfilConfigurado');
+      localStorage.removeItem(PERFIL_KEY);
     }
   }, [perfilConfigurado]);
 
+  // Verifica a configuração do perfil quando o componente é montado
   useEffect(() => {
-    if (localStorage.getItem('perfilConfigurado') === 'true') {
+    if (localStorage.getItem(PERFIL_KEY) === 'true') {
       setPerfilConfigurado(true);
     }
 
+    // Redireciona se o usuário está autenticado e configurou o perfil
     if (token && perfilConfigurado && location.pathname === '/') {
       navigate('/homeposlogin');
-      console.log("Redirecionando para /homeposlogin...");
     }
   }, [token, perfilConfigurado, setPerfilConfigurado, navigate, location]);
+
+  // Rota privada para autenticação
+  function PrivateRoute({ element: Component, ...rest }) {
+    return token ? <Component {...rest} /> : <Navigate to="/login" />;
+  }
 
   return (
     <div>
@@ -54,21 +64,42 @@ function App() {
 
       <main>
         <Routes>
+          {/* Rotas públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
+          
+          {/* Rota de configuração do perfil (privada) */}
           <Route
             path="/configurar-perfil"
             element={token ? <ConfigurarPerfil /> : <Navigate to="/login" />}
           />
+
+          {/* Rota após login (privada) */}
           <Route
             path="/homeposlogin"
             element={token ? <HomePosLogin /> : <Navigate to="/login" />}
           />
-          <Route path="/" element={<HomePage />} />
+
+          {/* Rota inicial - Página pública ou redireciona para HomePosLogin se autenticado */}
+          <Route
+            path="/"
+            element={token ? <Navigate to="/homeposlogin" /> : <HomePage />}
+          />
+
+          {/* Perfil do usuário (privada) */}
           <Route
             path="/perfil"
-            element={token ? <Perfil /> : <Navigate to="/login" />}
+            element={<PrivateRoute element={Perfil} />}
           />
+
+          {/* Perfil de parceiros (privada) */}
+          <Route
+            path="/perfilparceiros"
+            element={<PrivateRoute element={PerfilParceiros} />}
+          />
+          
+          {/* Rota 404 */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
 
