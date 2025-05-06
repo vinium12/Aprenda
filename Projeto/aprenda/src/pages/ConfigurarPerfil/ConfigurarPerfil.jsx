@@ -4,6 +4,8 @@ import axios from "axios";
 import SelectWithLabel from "../../components/Select"; // Importando o SelectWithLabel
 import styles from "./ConfigurarPerfil.module.css";
 import Estudante from "../../assets/images/Estudante.svg";
+import CardHabilidade from "../../components/CardHabilidade";
+
 const ConfigurarPerfil = () => {
   const [categorias, setCategorias] = useState([]);
   const [subcategoriasEnsinar, setSubcategoriasEnsinar] = useState([]);
@@ -237,28 +239,18 @@ const ConfigurarPerfil = () => {
                 })
               }
             />
-            <button onClick={adicionarHabilidadeEnsinar} className={styles.btnHabilidades}>Registrar</button>
+            <button
+              onClick={adicionarHabilidadeEnsinar}
+              className={styles.btnHabilidades}
+            >
+              Registrar
+            </button>{" "}
+            {/*Ao apertar esse botão sera registrado os cards (mas ainda n sera registrado no banco)*/}
           </div>
 
           <h3>Habilidades adicionadas para ensinar:</h3>
-          <div className={styles.habilidades}>
-            {habilidadesEnsinar.map((habilidade, index) => (
-              <div key={index}>
-                <p>
-                  <strong>Categoria:</strong> {habilidade.categoria}
-                </p>
-                <p>
-                  <strong>Subcategoria:</strong> {habilidade.subcategoria}
-                </p>
-                <p>
-                  <strong>Nível:</strong> {habilidade.nivel}
-                </p>
-                <p>
-                  <strong>Descrição:</strong> {habilidade.descricao}
-                </p>
-              </div>
-            ))}
-          </div>
+          <CardHabilidade dados={habilidadesEnsinar} tipo="ensinar" />
+
           <div className={styles.cabecalho}>
             <h2>📘 O que você quer aprender?</h2> <p>*Máximo 3 objetivos</p>
           </div>
@@ -322,31 +314,21 @@ const ConfigurarPerfil = () => {
                 })
               }
             />
-            <button onClick={adicionarHabilidadeAprender} className={styles.btnObjetivos}>Registrar</button>
+            <button
+              onClick={adicionarHabilidadeAprender}
+              className={styles.btnObjetivos}
+            >
+              Registrar
+            </button>{" "}
+            {/*Ao apertar esse botão sera registrado os cards (mas ainda n sera registrado no banco)*/}
           </div>
 
-          <h3>Habilidades adicionadas para aprender:</h3>
-          <div className={styles.habilidades}>
-            {habilidadesAprender.map((habilidade, index) => (
-              <div key={index}>
-                <p>
-                  <strong>Categoria:</strong> {habilidade.categoria}
-                </p>
-                <p>
-                  <strong>Subcategoria:</strong> {habilidade.subcategoria}
-                </p>
-                <p>
-                  <strong>Nível:</strong> {habilidade.nivel}
-                </p>
-                <p>
-                  <strong>Descrição:</strong> {habilidade.descricao}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <button onClick={handleSubmit}>Salvar e finalizar</button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+            <h3>Objetivos adicionados para aprender:</h3>
+            <CardHabilidade dados={habilidadesAprender} tipo="aprender" />          
+          
+            {error && <p style={{ color: "red" }}>{error}</p>/*Transformar em Mensagem de sessão*/}
+          <div className={styles.finalizar}><button onClick={handleSubmit}>Salvar e finalizar</button></div>
+         
         </div>
       </div>
     </div>

@@ -24,8 +24,8 @@ const Header = ({ isAuthenticated, onLogout, onConfigurarPerfil }) => {
           </>
         ) : (
           <>
-            <button onClick={onLogout}>Sair</button>
-            <button onClick={onConfigurarPerfil}>Configurar Perfil</button>
+            <button className={styles.sair} onClick={onLogout}>Sair</button>
+            <button className={styles.config} onClick={onConfigurarPerfil}>Configurar Perfil</button>
           </>
         )}
       </nav>

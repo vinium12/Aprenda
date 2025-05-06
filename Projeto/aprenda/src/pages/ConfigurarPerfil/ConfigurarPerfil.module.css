@@ -12,7 +12,7 @@ main{
     font-family: "Montserrat", sans-serif;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
+    min-height: 95vh;
     margin-top:  clamp(60px, 10vw, 75px);;
 }
 
@@ -20,7 +20,7 @@ main{
   display: flex;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
-  height: 80vh;
+  height: 90vh;
 }
 
 .Esquerda {
@@ -39,11 +39,17 @@ main{
 
 .Direita{
     background-color: #FBFCFF;
+    display: flex;
+    flex-direction: column;
     width: 50vw;
     height: 100%;
     padding: 15px;
     color: #000217;
     border-radius:  0px 10px 10px 10px;
+}
+
+.Direita h3{
+  font-weight: 500;
 }
 
 .titulo {
@@ -96,6 +102,35 @@ main{
   padding: 5px;
   resize: none;
   font-family: "Montserrat", sans-serif;
+}
+
+.finalizar{
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.finalizar button{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #2C3DDC;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);    
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 300px;
+  height: 35px;
+}
+
+.finalizar button:hover{
+  background-color: #222EB3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .habilidades{

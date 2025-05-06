@@ -73,3 +73,47 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.sair{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #D84A4A;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);  
+  height: clamp(25px, 5vw, 40px);  
+  width: clamp(80px, 20vw, 150px); 
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.sair:hover{
+  background-color: #B93C3C;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.config{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #2C3DDC;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);  
+  height: clamp(25px, 5vw, 40px);  
+  width: clamp(90px, 22vw, 175px);  
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.config:hover{
+  background-color: #1f2dbf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+

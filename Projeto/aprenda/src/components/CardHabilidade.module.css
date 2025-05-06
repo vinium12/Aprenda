@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .card {
+    width: 190px;
+    padding: 16px;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardEnsinar {
+    background-color: #DBEAFE; /* Azul para ensinar */
+    color: #1F2C9F;
+  }
+  
+  .cardAprender {
+    background-color: #DCFCE7; /* Verde para aprender */
+    color: #14532D;
+  }
+  
+  .cardVazio {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    padding: 16px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
