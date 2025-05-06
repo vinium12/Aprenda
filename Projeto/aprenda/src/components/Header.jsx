@@ -11,6 +11,7 @@ const Header = ({ isAuthenticated, onLogout, onConfigurarPerfil }) => {
         src="/AprendaLogo.svg"
         alt="logo_header"
         draggable="false"
+        onClick={() => navigate('/')}
       />
       <nav className={styles.botoes}>
         {!isAuthenticated ? (

@@ -5,7 +5,11 @@ import Foguete from "../../assets/images/Foguete.svg";
 import Cérebro from "../../assets/images/Cérebro.svg";
 import Maos from "../../assets/images/Maos.svg";
 import CF from "../../assets/images/ComoFunciona.svg";
+import { useNavigate } from "react-router-dom";
+
 const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.body}>
       {/* Banner */}
@@ -16,7 +20,7 @@ const HomePage = () => {
             <p>
               Encontre pessoas reais que querem aprender e ensinar, como você.
             </p>
-            <button className={styles.banerBotao}>Comece agora</button>
+            <button className={styles.banerBotao} onClick={() => navigate('/cadastro')}>Comece agora</button>
           </div>
           <img
             src={caraDosComputer}
@@ -92,7 +96,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <button className={styles.ButtonCard}>Participe</button>
+        <button className={styles.ButtonCard} onClick={() => navigate('/cadastro')}>Participe</button>
       </section>
 
       {/* Como Funciona */}
@@ -140,7 +144,7 @@ const HomePage = () => {
             Faça parte de uma comunidade onde cada conexão é uma nova chance de
             aprender e ensinar.
           </p>
-          <button className={styles.banerBotao}>Quero fazer parte!</button>
+          <button className={styles.banerBotao} onClick={() => navigate('/cadastro')}>Quero fazer parte!</button>
         </div>
       </section>
     </div>
