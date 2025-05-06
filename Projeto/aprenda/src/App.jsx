@@ -1,12 +1,6 @@
-import React, { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import Login from "./pages/Login_cadastro/Login";
 import Cadastro from "./pages/Login_cadastro/Cadastro";
 import ConfigurarPerfil from "./pages/ConfigurarPerfil/ConfigurarPerfil";
@@ -14,7 +8,6 @@ import HomePosLogin from "./pages/HomePosLogin/HomePosLogin";
 import HomePage from "./pages/HomePage/homePage";
 import Perfil from "./pages/Perfil/Perfil";
 import PerfilParceiros from "./pages/Perfil/PerfilParceiros";
-import Sessao from "./pages/Sessao/Sessao";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -28,41 +21,35 @@ function App() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate('/login');
   };
 
   const handleVerPerfil = () => {
-    navigate("/perfil");
+    navigate('/perfil');
   };
 
   // Gerencia o status do perfil configurado no localStorage
   useEffect(() => {
     if (perfilConfigurado) {
       localStorage.setItem(PERFIL_KEY, 'true');
-      localStorage.setItem("perfilConfigurado", "true");
     } else {
       localStorage.removeItem(PERFIL_KEY);
-      localStorage.removeItem("perfilConfigurado");
     }
   }, [perfilConfigurado]);
 
   // Verifica a configuração do perfil quando o componente é montado
   useEffect(() => {
     if (localStorage.getItem(PERFIL_KEY) === 'true') {
-    if (localStorage.getItem("perfilConfigurado") === "true") {
       setPerfilConfigurado(true);
     }
 
     // Redireciona se o usuário está autenticado e configurou o perfil
     if (token && perfilConfigurado && location.pathname === '/') {
       navigate('/homeposlogin');
-    if (token && perfilConfigurado && location.pathname === "/") {
-      navigate("/homeposlogin");
-      console.log("Redirecionando para /homeposlogin...");
     }
   }, [token, perfilConfigurado, setPerfilConfigurado, navigate, location]);
 
-  // Rota privada para autenticação
+  // Componente PrivateRoute ajustado
   function PrivateRoute({ element: Component, ...rest }) {
     return token ? <Component {...rest} /> : <Navigate to="/login" />;
   }
@@ -104,13 +91,15 @@ function App() {
             path="/perfil"
             element={token ? <Perfil /> : <Navigate to="/login" />}
           />
+
+          {/* Perfil de parceiros (privada) */}
+          <Route
+            path="/perfilparceiros"
+            element={token ? <PerfilParceiros /> : <Navigate to="/login" />}
+          />
           
           {/* Rota 404 */}
           <Route path="*" element={<Navigate to="/" />} />
-          <Route
-            path="/Sessao"
-            element={token ? <Sessao /> : <Navigate to="/login" />}
-          />
         </Routes>
       </main>
 

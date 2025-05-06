@@ -1,0 +1,53 @@
+/* HomePosLogin.module.css */
+.container {
+    padding: 20px;
+  }
+  
+  .usuariosList {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .usuarioCard {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .usuarioImage {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  
+  p {
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  .verPerfilButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .verPerfilButton:hover {
+    background-color: #0056b3;
+  }
+  
