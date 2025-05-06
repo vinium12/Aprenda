@@ -1,0 +1,20 @@
+.container {
+    padding: 2rem;
+  }
+  
+  .configBtn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    background-color: #2C3DDC;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .configBtn:hover {
+    background-color: #1f2dbf;
+  }
+  

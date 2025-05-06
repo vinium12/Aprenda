@@ -76,8 +76,8 @@ app.post('/login', async (req, res) => {
   const usuario = results[0];
   const match = await bcrypt.compare(senha, usuario.senha);
   if (!match) return res.status(401).send('Senha incorreta');
-
-  const token = jwt.sign({ id: usuario.id, email: usuario.email }, SECRET, { expiresIn: '1h' });
+  
+  const token = jwt.sign({ id: usuario.id, email: usuario.email }, SECRET, { expiresIn: '7d' });
 
   res.json({ token, perfil_configurado: usuario.perfil_configurado });
 });

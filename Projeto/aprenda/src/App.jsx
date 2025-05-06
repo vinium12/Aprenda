@@ -6,6 +6,7 @@ import Cadastro from "./pages/Login_cadastro/Cadastro";
 import ConfigurarPerfil from "./pages/ConfigurarPerfil/ConfigurarPerfil";
 import HomePosLogin from "./pages/HomePosLogin/HomePosLogin";
 import HomePage from "./pages/HomePage/homePage";
+import Perfil from "./pages/Perfil/Perfil";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -20,8 +21,8 @@ function App() {
     navigate('/login');
   };
 
-  const handleConfigurarPerfil = () => {
-    navigate('/configurar-perfil');
+  const handleVerPerfil = () => {
+    navigate('/perfil');
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function App() {
       <Header
         isAuthenticated={!!token}
         onLogout={handleLogout}
-        onConfigurarPerfil={handleConfigurarPerfil}
+        onPerfilClick={handleVerPerfil}
       />
 
       <main>
@@ -64,6 +65,10 @@ function App() {
             element={token ? <HomePosLogin /> : <Navigate to="/login" />}
           />
           <Route path="/" element={<HomePage />} />
+          <Route
+            path="/perfil"
+            element={token ? <Perfil /> : <Navigate to="/login" />}
+          />
         </Routes>
       </main>
 

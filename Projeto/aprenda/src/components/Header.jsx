@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 
-const Header = ({ isAuthenticated, onLogout, onConfigurarPerfil }) => {
+const Header = ({ isAuthenticated, onLogout }) => {
   const navigate = useNavigate();
 
   return (
@@ -24,8 +24,12 @@ const Header = ({ isAuthenticated, onLogout, onConfigurarPerfil }) => {
           </>
         ) : (
           <>
+           
+
             <button className={styles.sair} onClick={onLogout}>Sair</button>
-            <button className={styles.config} onClick={onConfigurarPerfil}>Configurar Perfil</button>
+            <button className={styles.config} onClick={() => navigate('/perfil')}>
+              Meu Perfil
+            </button>
           </>
         )}
       </nav>

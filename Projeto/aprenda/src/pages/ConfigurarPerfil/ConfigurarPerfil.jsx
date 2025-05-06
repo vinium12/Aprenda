@@ -42,7 +42,7 @@ const ConfigurarPerfil = () => {
       axios
         .get(
           `http://localhost:3001/subcategorias/${habilidadeEnsinar.categoria}`
-        )
+        ) 
         .then((res) => setSubcategoriasEnsinar(res.data))
         .catch((err) => {
           console.error(err);
@@ -70,6 +70,10 @@ const ConfigurarPerfil = () => {
   }, [habilidadeAprender.categoria]);
 
   const adicionarHabilidadeEnsinar = () => {
+    if (habilidadesEnsinar.length >= 3) {
+      setError("Você pode adicionar no máximo 3 habilidades para ensinar.");
+      return;
+    }
     if (
       habilidadeEnsinar.categoria &&
       habilidadeEnsinar.subcategoria &&
@@ -89,6 +93,10 @@ const ConfigurarPerfil = () => {
   };
 
   const adicionarHabilidadeAprender = () => {
+    if (habilidadesAprender.length >= 3) {
+      setError("Você pode adicionar no máximo 3 habilidades para aprender.");
+      return;
+    }   
     if (
       habilidadeAprender.categoria &&
       habilidadeAprender.subcategoria &&
@@ -249,7 +257,8 @@ const ConfigurarPerfil = () => {
           </div>
 
           <h3>Habilidades adicionadas para ensinar:</h3>
-          <CardHabilidade dados={habilidadesEnsinar} tipo="ensinar" />
+          <CardHabilidade dados={habilidadesEnsinar} tipo="ensinar"categorias={categorias} subcategorias={subcategoriasEnsinar} />
+
 
           <div className={styles.cabecalho}>
             <h2>📘 O que você quer aprender?</h2> <p>*Máximo 3 objetivos</p>
@@ -308,30 +317,25 @@ const ConfigurarPerfil = () => {
               placeholder="Conte um pouco mais sobre seus objetivos..."
               value={habilidadeAprender.descricao}
               onChange={(e) =>
-                setHabilidadeAprender({
-                  ...habilidadeAprender,
-                  descricao: e.target.value,
+                setHabilidadeAprender({...habilidadeAprender,descricao: e.target.value,
                 })
               }
             />
             <button
-              onClick={adicionarHabilidadeAprender}
-              className={styles.btnObjetivos}
-            >
-              Registrar
-            </button>{" "}
+              onClick={adicionarHabilidadeAprender} className={styles.btnObjetivos}>  Registrar  </button>{" "}
             {/*Ao apertar esse botão sera registrado os cards (mas ainda n sera registrado no banco)*/}
           </div>
 
             <h3>Objetivos adicionados para aprender:</h3>
-            <CardHabilidade dados={habilidadesAprender} tipo="aprender" />          
+            <CardHabilidade dados={habilidadesAprender}tipo="aprender" categorias={categorias}subcategorias={subcategoriasAprender} />
+          
           
             {error && <p style={{ color: "red" }}>{error}</p>/*Transformar em Mensagem de sessão*/}
           <div className={styles.finalizar}><button onClick={handleSubmit}>Salvar e finalizar</button></div>
          
         </div>
       </div>
-    </div>
+    </div>  
   );
 };
 
