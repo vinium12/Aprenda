@@ -1,10 +1,12 @@
 .container {
     display: flex;
     justify-content: space-between; 
+    margin-bottom: 20px;
   }
   
   .card {
-    width: 190px;
+    min-width: 250px;
+    height: 150px;
     padding: 16px;
     border-radius: 8px;
     color: #fff;
@@ -20,12 +22,26 @@
     background-color: #DCFCE7; /* Verde para aprender */
     color: #14532D;
   }
+
+  .paragrafo{
+    color: black;
+  }
   
+.paragrafoEnsinar{
+  color: #1F2C9F;
+}
+
   .cardVazio {
     background-color: #f8f9fa;
     color: #6c757d;
     padding: 16px;
+    margin-top: 10px;
     border: 1px dashed #ccc;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
     border-radius: 8px;
     text-align: center;
   }

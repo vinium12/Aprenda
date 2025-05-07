@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import SelectWithLabel from "../../components/Select"; // Importando o SelectWithLabel
+import SelectWithLabel from "../../components/Select";
 import styles from "./ConfigurarPerfil.module.css";
 import Estudante from "../../assets/images/Estudante.svg";
 import CardHabilidade from "../../components/CardHabilidade";
@@ -24,6 +24,7 @@ const ConfigurarPerfil = () => {
     nivel: "",
     descricao: "",
   });
+  const [etapa, setEtapa] = useState(1); // <- NOVO: controle de etapa
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -42,13 +43,11 @@ const ConfigurarPerfil = () => {
       axios
         .get(
           `http://localhost:3001/subcategorias/${habilidadeEnsinar.categoria}`
-        ) 
+        )
         .then((res) => setSubcategoriasEnsinar(res.data))
         .catch((err) => {
           console.error(err);
-          setError(
-            "Erro ao carregar subcategorias para ensinar. Tente novamente."
-          );
+          setError("Erro ao carregar subcategorias para ensinar.");
         });
     }
   }, [habilidadeEnsinar.categoria]);
@@ -62,16 +61,14 @@ const ConfigurarPerfil = () => {
         .then((res) => setSubcategoriasAprender(res.data))
         .catch((err) => {
           console.error(err);
-          setError(
-            "Erro ao carregar subcategorias para aprender. Tente novamente."
-          );
+          setError("Erro ao carregar subcategorias para aprender.");
         });
     }
   }, [habilidadeAprender.categoria]);
 
   const adicionarHabilidadeEnsinar = () => {
     if (habilidadesEnsinar.length >= 3) {
-      setError("Você pode adicionar no máximo 3 habilidades para ensinar.");
+      setError("Máximo de 3 habilidades para ensinar.");
       return;
     }
     if (
@@ -79,7 +76,6 @@ const ConfigurarPerfil = () => {
       habilidadeEnsinar.subcategoria &&
       habilidadeEnsinar.nivel
     ) {
-      console.log("Adicionando habilidade:", habilidadeEnsinar); // <-- Aqui
       setHabilidadesEnsinar((prev) => [...prev, habilidadeEnsinar]);
       setHabilidadeEnsinar({
         categoria: "",
@@ -87,22 +83,22 @@ const ConfigurarPerfil = () => {
         nivel: "",
         descricao: "",
       });
+      setError("");
     } else {
-      setError("Categoria, Subcategoria e Nível são obrigatórios");
+      setError("Preencha todos os campos obrigatórios para ensinar.");
     }
   };
 
   const adicionarHabilidadeAprender = () => {
     if (habilidadesAprender.length >= 3) {
-      setError("Você pode adicionar no máximo 3 habilidades para aprender.");
+      setError("Máximo de 3 habilidades para aprender.");
       return;
-    }   
+    }
     if (
       habilidadeAprender.categoria &&
       habilidadeAprender.subcategoria &&
       habilidadeAprender.nivel
     ) {
-      console.log("Adicionando habilidade:", habilidadeAprender); // <-- Aqui
       setHabilidadesAprender((prev) => [...prev, habilidadeAprender]);
       setHabilidadeAprender({
         categoria: "",
@@ -110,28 +106,14 @@ const ConfigurarPerfil = () => {
         nivel: "",
         descricao: "",
       });
+      setError("");
     } else {
-      setError("Categoria, Subcategoria e Nível são obrigatórios");
+      setError("Preencha todos os campos obrigatórios para aprender.");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const invalidHabilidadeEnsinar = habilidadesEnsinar.some(
-      (h) => !h.categoria || !h.subcategoria || !h.nivel
-    );
-    const invalidHabilidadeAprender = habilidadesAprender.some(
-      (h) => !h.categoria || !h.subcategoria || !h.nivel
-    );
-
-    if (invalidHabilidadeEnsinar || invalidHabilidadeAprender) {
-      setError(
-        "Por favor, preencha todas as categorias, subcategorias e níveis antes de enviar."
-      );
-      return;
-    }
-
     try {
       const token = localStorage.getItem("token");
       await axios.post(
@@ -150,17 +132,13 @@ const ConfigurarPerfil = () => {
             descricao: h.descricao,
           })),
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Perfil configurado com sucesso!");
       navigate("/homeposlogin");
     } catch (err) {
       console.error(err);
-      setError("Erro ao configurar perfil. Tente novamente.");
+      setError("Erro ao salvar. Tente novamente.");
     }
   };
 
@@ -175,167 +153,209 @@ const ConfigurarPerfil = () => {
       <div className={styles.form}>
         <div className={styles.Esquerda}>
           <img src={Estudante} alt="" className={styles.Image} />
-          <p className={styles.titulo}>Bem Vindo Ao Aprenda!</p>
+          <p className={styles.titulo}>Bem-vindo ao Aprenda!</p>
           <p className={styles.subtitulo}>
-            Antes de começar, conte um pouco sobre o que você sabe e o que quer
-            aprender.
+            Antes de começar, conte o que você sabe e o que quer aprender.
           </p>
         </div>
 
         <div className={styles.Direita}>
-          <div className={styles.cabecalho}>
-            <h2>🎯 O que você pode ensinar?</h2> <p>*Máximo 3 habilidades</p>
-          </div>
-          <div className={styles.filtros}>
-            <SelectWithLabel
-              label="Categoria"
-              value={habilidadeEnsinar.categoria}
-              onChange={(e) =>
-                setHabilidadeEnsinar({
-                  ...habilidadeEnsinar,
-                  categoria: e.target.value,
-                  subcategoria: "",
-                  // Resetar subcategoria ao mudar a categoria
-                })
-              }
-              options={categorias.map((c) => ({ value: c.id, label: c.nome }))}
-            />
+          {etapa === 1 && (
+            <>
+              <div className={styles.cabecalho}>
+                <h2>🎯 O que você pode ensinar?</h2>{" "}
+                <p>*Máximo 3 habilidades</p>
+              </div>
 
-            <SelectWithLabel
-              label="Subcategoria"
-              value={habilidadeEnsinar.subcategoria}
-              onChange={(e) =>
-                setHabilidadeEnsinar({
-                  ...habilidadeEnsinar,
-                  subcategoria: e.target.value,
-                })
-              }
-              options={
-                habilidadeEnsinar.categoria === "" // Verifica se a categoria não está selecionada
-                  ? [{ value: "", label: "Selecione uma categoria" }] // Exibe a opção padrão "Selecione uma subcategoria" quando não há categoria
-                  : subcategoriasEnsinar.length > 0
-                  ? subcategoriasEnsinar.map((s) => ({
-                      value: s.id,
-                      label: s.nome,
-                    }))
-                  : [{ value: "", label: "Nenhuma subcategoria disponível" }] // Caso não haja subcategorias
-              }
-            />
+              <div className={styles.filtros}>
+                <SelectWithLabel
+                  label="Categoria"
+                  value={habilidadeEnsinar.categoria}
+                  onChange={(e) =>
+                    setHabilidadeEnsinar({
+                      ...habilidadeEnsinar,
+                      categoria: e.target.value,
+                      subcategoria: "",
+                    })
+                  }
+                  options={categorias.map((c) => ({
+                    value: c.id,
+                    label: c.nome,
+                  }))}
+                />
+                <SelectWithLabel
+                  label="Subcategoria"
+                  value={habilidadeEnsinar.subcategoria}
+                  onChange={(e) =>
+                    setHabilidadeEnsinar({
+                      ...habilidadeEnsinar,
+                      subcategoria: e.target.value,
+                    })
+                  }
+                  options={
+                    habilidadeEnsinar.categoria === ""
+                      ? [{ value: "", label: "Selecione uma categoria" }]
+                      : subcategoriasEnsinar.length > 0
+                      ? subcategoriasEnsinar.map((s) => ({
+                          value: s.id,
+                          label: s.nome,
+                        }))
+                      : [
+                          {
+                            value: "",
+                            label: "Nenhuma subcategoria disponível",
+                          },
+                        ]
+                  }
+                />
+                <SelectWithLabel
+                  label="Nível"
+                  value={habilidadeEnsinar.nivel}
+                  onChange={(e) =>
+                    setHabilidadeEnsinar({
+                      ...habilidadeEnsinar,
+                      nivel: e.target.value,
+                    })
+                  }
+                  options={options}
+                />
+              </div>
 
-            <SelectWithLabel
-              label="Nível"
-              value={habilidadeEnsinar.nivel}
-              onChange={(e) =>
-                setHabilidadeEnsinar({
-                  ...habilidadeEnsinar,
-                  nivel: e.target.value,
-                })
-              }
-              options={options}
-            />
-          </div>
+              <div className={styles.bloco}>
+                <textarea
+                  placeholder="Fale mais sobre suas habilidades..."
+                  value={habilidadeEnsinar.descricao}
+                  onChange={(e) =>
+                    setHabilidadeEnsinar({
+                      ...habilidadeEnsinar,
+                      descricao: e.target.value,
+                    })
+                  }
+                />
+                <button
+                  onClick={adicionarHabilidadeEnsinar}
+                  className={styles.btnHabilidades}
+                >
+                  Registrar
+                </button>
+              </div>
 
-          <div className={styles.bloco}>
-            <textarea
-              type="text"
-              placeholder="Fale mais sobre suas habilidades..."
-              value={habilidadeEnsinar.descricao}
-              onChange={(e) =>
-                setHabilidadeEnsinar({
-                  ...habilidadeEnsinar,
-                  descricao: e.target.value,
-                })
-              }
-            />
-            <button
-              onClick={adicionarHabilidadeEnsinar}
-              className={styles.btnHabilidades}
-            >
-              Registrar
-            </button>{" "}
-            {/*Ao apertar esse botão sera registrado os cards (mas ainda n sera registrado no banco)*/}
-          </div>
+              <h3>Habilidades adicionadas para ensinar:</h3>
+              <CardHabilidade
+                dados={habilidadesEnsinar}
+                tipo="ensinar"
+                categorias={categorias}
+                subcategorias={subcategoriasEnsinar}
+              />
+              <div className={styles.btns}>
+                <button
+                  onClick={() => setEtapa(2)}
+                  className={styles.btnProximaEtapa}
+                >
+                  Próxima etapa
+                </button>
+              </div>
+            </>
+          )}
 
-          <h3>Habilidades adicionadas para ensinar:</h3>
-          <CardHabilidade dados={habilidadesEnsinar} tipo="ensinar"categorias={categorias} subcategorias={subcategoriasEnsinar} />
+          {etapa === 2 && (
+            <>
+              <div className={styles.cabecalho}>
+                <h2>📘 O que você quer aprender?</h2> <p>*Máximo 3 objetivos</p>
+              </div>
 
+              <div className={styles.filtros}>
+                <SelectWithLabel
+                  label="Categoria"
+                  value={habilidadeAprender.categoria}
+                  onChange={(e) =>
+                    setHabilidadeAprender({
+                      ...habilidadeAprender,
+                      categoria: e.target.value,
+                      subcategoria: "",
+                    })
+                  }
+                  options={categorias.map((c) => ({
+                    value: c.id,
+                    label: c.nome,
+                  }))}
+                />
+                <SelectWithLabel
+                  label="Subcategoria"
+                  value={habilidadeAprender.subcategoria}
+                  onChange={(e) =>
+                    setHabilidadeAprender({
+                      ...habilidadeAprender,
+                      subcategoria: e.target.value,
+                    })
+                  }
+                  options={
+                    habilidadeAprender.categoria === ""
+                      ? [{ value: "", label: "Selecione uma categoria" }]
+                      : subcategoriasAprender.length > 0
+                      ? subcategoriasAprender.map((s) => ({
+                          value: s.id,
+                          label: s.nome,
+                        }))
+                      : [
+                          {
+                            value: "",
+                            label: "Nenhuma subcategoria disponível",
+                          },
+                        ]
+                  }
+                />
+                <SelectWithLabel
+                  label="Nível"
+                  value={habilidadeAprender.nivel}
+                  onChange={(e) =>
+                    setHabilidadeAprender({
+                      ...habilidadeAprender,
+                      nivel: e.target.value,
+                    })
+                  }
+                  options={options}
+                />
+              </div>
 
-          <div className={styles.cabecalho}>
-            <h2>📘 O que você quer aprender?</h2> <p>*Máximo 3 objetivos</p>
-          </div>
-          <div className={styles.filtros}>
-            <SelectWithLabel
-              label="Categoria"
-              value={habilidadeAprender.categoria}
-              onChange={(e) =>
-                setHabilidadeAprender({
-                  ...habilidadeAprender,
-                  categoria: e.target.value,
-                  subcategoria: "", // Resetar subcategoria ao mudar a categoria
-                })
-              }
-              options={categorias.map((c) => ({ value: c.id, label: c.nome }))}
-            />
+              <div className={styles.bloco}>
+                <textarea
+                  placeholder="Conte um pouco mais sobre seus objetivos..."
+                  value={habilidadeAprender.descricao}
+                  onChange={(e) =>
+                    setHabilidadeAprender({
+                      ...habilidadeAprender,
+                      descricao: e.target.value,
+                    })
+                  }
+                />
+                <button
+                  onClick={adicionarHabilidadeAprender}
+                  className={styles.btnObjetivos}
+                >
+                  Registrar
+                </button>
+              </div>
 
-            <SelectWithLabel
-              label="Subcategoria"
-              value={habilidadeAprender.subcategoria}
-              onChange={(e) =>
-                setHabilidadeAprender({
-                  ...habilidadeAprender,
-                  subcategoria: e.target.value,
-                })
-              }
-              options={
-                habilidadeAprender.categoria === "" // Verifica se a categoria não está selecionada
-                  ? [{ value: "", label: "Selecione uma categoria" }] // Exibe a opção padrão "Selecione uma subcategoria" quando não há categoria
-                  : subcategoriasAprender.length > 0
-                  ? subcategoriasAprender.map((s) => ({
-                      value: s.id,
-                      label: s.nome,
-                    }))
-                  : [{ value: "", label: "Nenhuma subcategoria disponível" }] // Caso não haja subcategorias
-              }
-            />
+              <h3>Objetivos adicionados para aprender:</h3>
+              <CardHabilidade
+                dados={habilidadesAprender}
+                tipo="aprender"
+                categorias={categorias}
+                subcategorias={subcategoriasAprender}
+              />
 
-            <SelectWithLabel
-              label="Nível"
-              value={habilidadeAprender.nivel}
-              onChange={(e) =>
-                setHabilidadeAprender({
-                  ...habilidadeAprender,
-                  nivel: e.target.value,
-                })
-              }
-              options={options}
-            />
-          </div>
+              <div className={styles.botoesEtapas}>
+                <button onClick={() => setEtapa(1)}>Voltar</button>
+                <button onClick={handleSubmit}>Salvar e finalizar</button>
+              </div>
+            </>
+          )}
 
-          <div className={styles.bloco}>
-            <textarea
-              type="text"
-              placeholder="Conte um pouco mais sobre seus objetivos..."
-              value={habilidadeAprender.descricao}
-              onChange={(e) =>
-                setHabilidadeAprender({...habilidadeAprender,descricao: e.target.value,
-                })
-              }
-            />
-            <button
-              onClick={adicionarHabilidadeAprender} className={styles.btnObjetivos}>  Registrar  </button>{" "}
-            {/*Ao apertar esse botão sera registrado os cards (mas ainda n sera registrado no banco)*/}
-          </div>
-
-            <h3>Objetivos adicionados para aprender:</h3>
-            <CardHabilidade dados={habilidadesAprender}tipo="aprender" categorias={categorias}subcategorias={subcategoriasAprender} />
-          
-          
-            {error && <p style={{ color: "red" }}>{error}</p>/*Transformar em Mensagem de sessão*/}
-          <div className={styles.finalizar}><button onClick={handleSubmit}>Salvar e finalizar</button></div>
-         
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
       </div>
-    </div>  
+    </div>
   );
 };
 

@@ -79,7 +79,7 @@ const CardHabilidade = ({ dados = [], tipo, categorias = [], subcategorias = [] 
   if (!dados || dados.length === 0) {
     return (
       <div className={styles.cardVazio}>
-        <p>🔎 Nenhum{tipo === "ensinar" ? "a habilidade" : " objetivo"} cadastrad{tipo === "ensinar" ? "a" : "o"} ainda.</p>
+        <p className={styles.paragrafo}>🔎 Nenhum{tipo === "ensinar" ? "a habilidade" : " objetivo"} cadastrad{tipo === "ensinar" ? "a" : "o"} ainda.</p>
       </div>
     );
   }
@@ -88,10 +88,10 @@ const CardHabilidade = ({ dados = [], tipo, categorias = [], subcategorias = [] 
     <div className={styles.container}>
       {dados.map((item, index) => (
         <div key={index} className={`${styles.card} ${getEstiloPorTipo(tipo)}`}>
-          <p><strong>Categoria:</strong> {getCategoriaNome(item.categoria)}</p>
-          <p><strong>Subcategoria:</strong> {getSubcategoriaNome(item.subcategoria)}</p>
-          <p><strong>Nível:</strong> {item.nivel}</p>
-          <p><strong>Descrição:</strong> {item.descricao}</p>
+          <p className={styles.paragrafoEnsinar}><strong>Categoria:</strong> {getCategoriaNome(item.categoria)}</p>
+          <p className={styles.paragrafoEnsinar}><strong>Subcategoria:</strong> {getSubcategoriaNome(item.subcategoria)}</p>
+          <p className={styles.paragrafoEnsinar}><strong>Nível:</strong> {item.nivel}</p>
+          <p className={styles.paragrafoEnsinar}><strong>Descrição:</strong> {item.descricao}</p>
         </div>
       ))}
     </div>
