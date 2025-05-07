@@ -19,6 +19,8 @@ function Cadastro({ onSwitch }) {
   });
   const [erros, setErros] = useState({});
   const navigate = useNavigate();
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
 
   // Validação por campo
   const schema = Yup.object().shape({
@@ -198,33 +200,61 @@ function Cadastro({ onSwitch }) {
                 <motion.div key="etapa4" {...transicao}>
                   <h2>Quase lá!</h2>
                   <label>Senha:</label>
-                  <input
-                    type="password"
-                    name="senha"
-                    placeholder="Coloque sua Senha"
-                    value={dados.senha}
-                    onChange={handleChange}
-                  />
-                  {erros.senha && <div className={styles.error}>{erros.senha}</div>}
+                    <div className={styles.senhaWrapper}>
+                      <input
+                        type={mostrarSenha ? "text" : "password"}
+                        name="senha"
+                        placeholder="Coloque sua Senha"
+                        value={dados.senha}
+                        onChange={handleChange}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setMostrarSenha(!mostrarSenha)}
+                        className={styles.toggleSenha}
+                        aria-label="Mostrar ou ocultar senha"
+                      >
+                        <img
+                          src={
+                            mostrarSenha
+                              ? "./src/assets/icons/OlhoAberto.svg"
+                              : "./src/assets/icons/olhofechado.svg"
+                          }
+                          alt="Mostrar/Ocultar"
+                        />
+                      </button>
+                    </div>
+                    {erros.senha && <div className={styles.error}>{erros.senha}</div>}
 
-                  <label>Confirmar Senha:</label>
-                  <input
-                    type="password"
-                    name="confirmarSenha"
-                    placeholder="Confirme sua Senha"
-                    value={dados.confirmarSenha}
-                    onChange={handleChange}
-                  />
-                  {erros.confirmarSenha && <div className={styles.error}>{erros.confirmarSenha}</div>}
 
-                  <p>A senha deve conter:</p>
-                  <ul>
-                    <li>8+ caracteres</li>
-                    <li>1 letra maiúscula</li>
-                    <li>1 letra minúscula</li>
-                  </ul>
-
-                  <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
+                    <label>Confirmar Senha:</label>
+                      <div className={styles.senhaWrapper}>
+                        <input
+                          type={mostrarConfirmarSenha ? "text" : "password"}
+                          name="confirmarSenha"
+                          placeholder="Confirme sua Senha"
+                          value={dados.confirmarSenha}
+                          onChange={handleChange}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
+                          className={styles.toggleSenha}
+                          aria-label="Mostrar ou ocultar senha"
+                        >
+                          <img
+                            src={
+                              mostrarConfirmarSenha
+                                ? "./src/assets/icons/OlhoAberto.svg"
+                                : "./src/assets/icons/olhofechado.svg"
+                            }
+                            alt="Mostrar/Ocultar"
+                          />
+                        </button>
+                      </div>
+                        {erros.confirmarSenha && (
+                      <div className={styles.error}>{erros.confirmarSenha}</div>
+                    )}
                 </motion.div>
               )}
 
