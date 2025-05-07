@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Importe useNavigate
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './PerfilParceiros.module.css';
@@ -14,6 +14,7 @@ function PerfilParceiros() {
   const { usuario } = useAuth();
   const [habilidadeSelecionada, setHabilidadeSelecionada] = useState('');
   const [objetivoSelecionado, setObjetivoSelecionado] = useState('');
+  const navigate = useNavigate(); // Adicionando useNavigate
 
   useEffect(() => {
     if (!usuario || !usuario.id) return;
@@ -61,14 +62,12 @@ function PerfilParceiros() {
       });
   
       alert('Parceria registrada com sucesso!');
+      navigate('/homePosLogin'); // Redireciona para a página HomePosLogin após sucesso
     } catch (error) {
       console.error('Erro ao criar parceria:', error.message, error.stack);
       alert('Erro ao registrar parceria.');
     }
   };
-
- 
-  
 
   useEffect(() => {
     const carregarPerfilParceiro = async () => {
@@ -88,9 +87,6 @@ function PerfilParceiros() {
     carregarPerfilParceiro();
   }, [id]);
 
-  // Carregar usuário logado
-
-  
   if (loading) return <p>Carregando perfil do parceiro...</p>;
   if (error) return <p>{error}</p>;
 
@@ -141,40 +137,38 @@ function PerfilParceiros() {
               <p>Este parceiro ainda não adicionou objetivos.</p>
             )}
           </div>
+          
           <div className={styles.selecaoParceria}>
+            <div>
+              <label>Escolha seu objetivo:</label>
+              <select
+                value={objetivoSelecionado}
+                onChange={(e) => setObjetivoSelecionado(e.target.value)}
+              >
+                <option value="">Selecione</option>
+                {usuarioLogado.objetivos.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.categoria_nome} - {o.subcategoria_nome}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-
-          <div>
-  <label>Escolha seu objetivo:</label>
-  <select
-    value={objetivoSelecionado}
-    onChange={(e) => setObjetivoSelecionado(e.target.value)}
-  >
-    <option value="">Selecione</option>
-    {usuarioLogado.objetivos.map((o) => (
-      <option key={o.id} value={o.id}>
-        {o.categoria_nome} - {o.subcategoria_nome}
-      </option>
-    ))}
-  </select>
-</div>
-
-<div>
-  <label>Escolha a habilidade do parceiro:</label>
-  <select
-    value={habilidadeSelecionada}
-    onChange={(e) => setHabilidadeSelecionada(e.target.value)}
-  >
-    <option value="">Selecione</option>
-    {parceiro.habilidades.map((h) => (
-      <option key={h.id} value={h.id}>
-        {h.categoria_nome} - {h.subcategoria_nome}
-      </option>
-    ))}
-  </select>
-</div>
-</div>
- 
+            <div>
+              <label>Escolha a habilidade do parceiro:</label>
+              <select
+                value={habilidadeSelecionada}
+                onChange={(e) => setHabilidadeSelecionada(e.target.value)}
+              >
+                <option value="">Selecione</option>
+                {parceiro.habilidades.map((h) => (
+                  <option key={h.id} value={h.id}>
+                    {h.categoria_nome} - {h.subcategoria_nome}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
           <button className={styles.btnParceria} onClick={fazerParceria}>
             Fazer Parceria
