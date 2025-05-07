@@ -26,7 +26,9 @@ const Header = ({ isAuthenticated, onLogout }) => {
         ) : (
           <>
            
-
+            <button className={styles.BotaoHeader} onClick={() => navigate('/home-logado')}>Home</button>
+            <button className={styles.BotaoHeader}onClick={() => navigate('/parcerias')}>Parcerias</button>
+            <button className={styles.BotaoHeader}onClick={() => navigate('/sessao')}>Sessão</button>
             <button className={styles.sair} onClick={onLogout}>Sair</button>
             <button className={styles.config} onClick={() => navigate('/perfil')}>
               Meu Perfil
