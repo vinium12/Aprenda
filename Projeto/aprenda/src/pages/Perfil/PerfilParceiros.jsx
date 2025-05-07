@@ -15,31 +15,27 @@ function PerfilParceiros() {
   const [habilidadeSelecionada, setHabilidadeSelecionada] = useState('');
   const [objetivoSelecionado, setObjetivoSelecionado] = useState('');
 
+  useEffect(() => {
+    if (!usuario || !usuario.id) return;
+  
+    const carregarUsuarioLogado = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3001/me/${usuario.id}`);
+        const { usuario: dadosUsuario, habilidades, objetivos } = res.data;
+        setUsuarioLogado({
+          ...dadosUsuario,
+          habilidades,
+          objetivos
+        });
+      } catch (erro) {
+        console.error('Erro ao carregar usuário logado:', erro);
+      }
+    };
+  
+    carregarUsuarioLogado();
+  }, [usuario]);
+  
   const fazerParceria = async () => {
-
-
-    useEffect(() => {
-      if (!usuario || !usuario.id) return;  // Se o usuário ou o ID não estiverem disponíveis, sai do efeito
-    
-      const carregarUsuarioLogado = async () => {
-        try {
-          const res = await axios.get(`http://localhost:3001/me/${usuario.id}`);
-          const { usuario: dadosUsuario, habilidades, objetivos } = res.data;
-          setUsuarioLogado({
-            ...dadosUsuario,
-            habilidades,
-            objetivos
-          });
-        } catch (erro) {
-          console.error('Erro ao carregar usuário logado:', erro);
-        }
-      };
-    
-      carregarUsuarioLogado();
-    }, [usuario]); // O efeito depende do estado de 'usuario'
-    
-
-
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -57,7 +53,7 @@ function PerfilParceiros() {
         habilidadeId: habilidadeSelecionada,
         objetivoId: objetivoSelecionado,
       };
-  
+      console.log(payload)
       const res = await axios.post('http://localhost:3001/fazer-parceria', payload, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -66,14 +62,12 @@ function PerfilParceiros() {
   
       alert('Parceria registrada com sucesso!');
     } catch (error) {
-      console.error('Erro ao registrar parceria:', error);
+      console.error('Erro ao criar parceria:', error.message, error.stack);
       alert('Erro ao registrar parceria.');
     }
   };
 
-  useEffect(() => {
-    console.log("Usuário do AuthContext:", usuario);  // Verifique se o usuário foi carregado corretamente
-  }, [usuario]);
+ 
   
 
   useEffect(() => {
@@ -150,37 +144,37 @@ function PerfilParceiros() {
           <div className={styles.selecaoParceria}>
 
 
-  <div>
-    <label>Escolha sua habilidade:</label>
-    <select
-      value={habilidadeSelecionada}
-      onChange={(e) => setHabilidadeSelecionada(e.target.value)}
-    >
-      <option value="">Selecione</option>
-      {usuarioLogado.habilidades.map((h) => (
-        <option key={h.id} value={h.id}>
-          {h.categoria_nome} - {h.subcategoria_nome}
-        </option>
-      ))}
-    </select>
-  </div>
-
-  <div>
-    <label>Escolha o objetivo do parceiro:</label>
-    <select
-      value={objetivoSelecionado}
-      onChange={(e) => setObjetivoSelecionado(e.target.value)}
-    >
-      <option value="">Selecione</option>
-      {parceiro.objetivos.map((o) => (
-        <option key={o.id} value={o.id}>
-          {o.categoria_nome} - {o.subcategoria_nome}
-        </option>
-      ))}
-    </select>
-  </div>
+          <div>
+  <label>Escolha seu objetivo:</label>
+  <select
+    value={objetivoSelecionado}
+    onChange={(e) => setObjetivoSelecionado(e.target.value)}
+  >
+    <option value="">Selecione</option>
+    {usuarioLogado.objetivos.map((o) => (
+      <option key={o.id} value={o.id}>
+        {o.categoria_nome} - {o.subcategoria_nome}
+      </option>
+    ))}
+  </select>
 </div>
 
+<div>
+  <label>Escolha a habilidade do parceiro:</label>
+  <select
+    value={habilidadeSelecionada}
+    onChange={(e) => setHabilidadeSelecionada(e.target.value)}
+  >
+    <option value="">Selecione</option>
+    {parceiro.habilidades.map((h) => (
+      <option key={h.id} value={h.id}>
+        {h.categoria_nome} - {h.subcategoria_nome}
+      </option>
+    ))}
+  </select>
+</div>
+</div>
+ 
 
           <button className={styles.btnParceria} onClick={fazerParceria}>
             Fazer Parceria

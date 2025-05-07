@@ -28,8 +28,8 @@ function Login({ onSwitch }) {
       axios
         .post("http://localhost:3001/login", values)
         .then((res) => {
-          const { token, perfil_configurado } = res.data;
-          login(token, perfil_configurado);
+          const { token, perfil_configurado, usuario } = res.data;
+          login(token, perfil_configurado, usuario);
           alert("Login feito com sucesso!");
           if (perfil_configurado) {
             navigate("/HomePosLogin");

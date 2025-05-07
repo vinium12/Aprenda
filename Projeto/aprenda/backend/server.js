@@ -32,10 +32,12 @@ function autenticarToken(req, res, next) {
 
   jwt.verify(token, SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
+    console.log('Usuário autenticado:', user);  // Verificar se os dados estão corretos
     req.user = user;
     next();
   });
 }
+
 
 // codigo abaixo mudado
 
@@ -83,13 +85,52 @@ app.post('/login', async (req, res) => {
   
   const token = jwt.sign({ id: usuario.id, email: usuario.email }, SECRET, { expiresIn: '7d' });
 
-  res.json({ token, userId: usuario.id,  perfil_configurado: usuario.perfil_configurado });
+  res.json({
+    token,
+    perfil_configurado: usuario.perfil_configurado,
+    usuario: {
+      id: usuario.id,
+      email: usuario.email,
+      nome: usuario.nome, // inclua outras propriedades conforme necessário
+    }
+  })
+});
+  
+// Verifique se você está importando corretamente o modelo
+app.get('/me/:id', async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const db = await getDbConnection();
+
+    const [usuarios] = await db.query('SELECT * FROM usuarios WHERE id = ?', [userId]);
+    if (usuarios.length === 0) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+
+    const usuario = usuarios[0];
+
+    // Supondo que você tenha tabelas 'habilidades' e 'objetivos' ligadas por usuario_id
+    const [habilidades] = await db.query('SELECT * FROM habilidades WHERE usuario_id = ?', [userId]);
+    const [objetivos] = await db.query(`
+      SELECT o.id, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+      FROM objetivos o
+      JOIN categorias c ON o.categoria_id = c.id
+      JOIN subcategorias s ON o.subcategoria_id = s.id
+      WHERE o.usuario_id = ?
+    `, [userId]);
+    
+
+    res.json({
+      usuario,
+      habilidades,
+      objetivos
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao buscar usuário' });
+  }
 });
 
-app.get('/me', autenticarToken, async (req, res) => {
-  const userId = req.user.id;
-  // buscar dados do usuário pelo userId e retornar
-});
+
+
 
 app.post('/configurar-perfil', autenticarToken, async (req, res) => {
   console.log('Dados recebidos:', req.body);
@@ -371,44 +412,51 @@ app.get('/perfil-parceiro/:id', async (req, res) => {
 
 
 app.post('/fazer-parceria', autenticarToken, async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user.id;  // Corrigir para req.user
   const { parceiroId, habilidadeId, objetivoId } = req.body;
 
   try {
     const db = await getDbConnection();
 
-    // Verifica se o usuário tem essa habilidade e o parceiro tem o objetivo correspondente
-    const [habilidadeUsuario] = await db.query(
-      'SELECT * FROM habilidades WHERE id = ? AND usuario_id = ?',
-      [habilidadeId, userId]
-    );
-    const [objetivoParceiro] = await db.query(
+    const [usuarios] = await db.query('SELECT * FROM usuarios WHERE id = ?', [userId]);
+    if (usuarios.length === 0) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+
+    const usuario = usuarios[0];
+    console.log("Body recebido:", req.body);
+    console.log("Usuário autenticado:", req.user);  // Corrigir para req.user
+
+    // Verificar se o objetivo pertence ao usuário logado
+    const [objetivoUsuario] = await db.query(
       'SELECT * FROM objetivos WHERE id = ? AND usuario_id = ?',
-      [objetivoId, parceiroId]
+      [objetivoId, userId]
     );
 
-    // Verifica se a habilidade do usuário é igual ao objetivo do parceiro
-    if (habilidadeUsuario.length === 0) {
-      return res.status(400).send('Habilidade não encontrada ou não pertence ao usuário.');
-    }
-    if (objetivoParceiro.length === 0) {
-      return res.status(400).send('Objetivo não encontrado ou não pertence ao parceiro.');
-    }
-
-    // Agora vamos salvar a parceria na tabela
-    const [result] = await db.query(
-      'INSERT INTO parcerias (usuario_id, parceiro_id, habilidade_id, objetivo_id) VALUES (?, ?, ?, ?)',
-      [userId, parceiroId, habilidadeId, objetivoId]
+    // Verificar se a habilidade pertence ao parceiro
+    const [habilidadeParceiro] = await db.query(
+      'SELECT * FROM habilidades WHERE id = ? AND usuario_id = ?',
+      [habilidadeId, parceiroId]
     );
 
-    res.status(200).json({ mensagem: 'Parceria criada com sucesso', idParceria: result.insertId });
-  } catch (error) {
-    console.error('Erro ao criar parceria:', error);
-    res.status(500).json({ erro: 'Erro ao criar parceria' });
-  }
+   if (objetivoUsuario.length === 0) {
+     return res.status(400).send('Objetivo não encontrado ou não pertence ao usuário.');
+   }
+
+   if (habilidadeParceiro.length === 0) {
+     return res.status(400).send('Habilidade não encontrada ou não pertence ao parceiro.');
+   }
+
+   const [result] = await db.query(
+     'INSERT INTO parcerias (usuario_id, parceiro_id, habilidade_id, objetivo_id) VALUES (?, ?, ?, ?)',
+     [userId, parceiroId, habilidadeId, objetivoId]
+   );
+
+   res.status(200).json({ mensagem: 'Parceria criada com sucesso', idParceria: result.insertId });
+ } catch (error) {
+   console.error('Erro ao criar parceria:', error.message, error.stack);
+   res.status(500).json({ erro: 'Erro ao criar parceria' });
+ }
+
 });
-
-
 
 
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'));
