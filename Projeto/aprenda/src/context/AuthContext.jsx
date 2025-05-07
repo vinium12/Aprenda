@@ -9,8 +9,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem('perfil_configurado') === 'true'
   );
   const [usuario, setUsuario] = useState(() => {
-    const savedUser = localStorage.getItem('usuario');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem('usuario');
+      return savedUser && savedUser !== 'undefined' ? JSON.parse(savedUser) : null;
+    } catch (error) {
+      console.error('Erro ao fazer parse do usuário salvo:', error);
+      return null;
+    }
   });
   
 
