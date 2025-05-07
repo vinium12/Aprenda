@@ -1,5 +1,5 @@
 /* HEADER - Mantido como estava, com flex para alinhamento e altura definida */
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
@@ -10,19 +10,23 @@
   background-color: var(--azul-escuro);
   padding: clamp(10px, 2vh, 20px) clamp(20px, 4vw, 40px);
   color: var(--gelo);
-  position: fixed;  
+  position: fixed;
   top: 0;
-  left: 0;  
+  left: 0;
   width: 100%;
   height: clamp(60px, 10vw, 75px);
-  z-index: 10; 
-  flex-wrap: wrap; 
+  z-index: 10;
+  flex-wrap: wrap;
 }
 
 .logo {
-  height: clamp(20px, 5vw, 35px); 
+  height: clamp(20px, 5vw, 35px);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
-
+.logo:hover {
+  transform: scale(1.1);
+}
 .botoes {
   display: flex;
   justify-content: flex-end;
@@ -36,9 +40,9 @@
   border: 1px solid transparent;
   background-color: transparent;
   color: var(--gelo);
-  font-size: clamp(10px, 2vw, 14px);  
-  height: clamp(25px, 5vw, 40px);  
-  width: clamp(80px, 20vw, 150px);  
+  font-size: clamp(10px, 2vw, 14px);
+  height: clamp(25px, 5vw, 40px);
+  width: clamp(80px, 20vw, 150px);
   border-radius: 4px;
   cursor: pointer;
   outline: none;
@@ -55,12 +59,12 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #2C3DDC;
+  background-color: #2c3ddc;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);  
-  height: clamp(25px, 5vw, 40px);  
-  width: clamp(90px, 22vw, 175px);  
+  font-size: clamp(10px, 2vw, 14px);
+  height: clamp(25px, 5vw, 40px);
+  width: clamp(90px, 22vw, 175px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -73,47 +77,79 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.sair{
+.sair {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #D84A4A;
+  background-color: #d84a4a;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);  
-  height: clamp(25px, 5vw, 40px);  
-  width: clamp(80px, 20vw, 150px); 
+  font-size: clamp(10px, 2vw, 14px);
+  height: clamp(25px, 5vw, 40px);
+  width: clamp(80px, 20vw, 150px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
 }
 
-.sair:hover{
-  background-color: #B93C3C;
+.sair:hover {
+  background-color: #b93c3c;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.config{
+.config {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #2C3DDC;
+  background-color: #2c3ddc;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);  
-  height: clamp(25px, 5vw, 40px);  
-  width: clamp(90px, 22vw, 175px);  
+  font-size: clamp(10px, 2vw, 14px);
+  height: clamp(25px, 5vw, 40px);
+  width: clamp(90px, 22vw, 175px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
 }
 
-.config:hover{
+.config:hover {
   background-color: #1f2dbf;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.BotaoHeader {
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: clamp(10px, 2vw, 14px);
+  cursor: pointer;
+  color: var(--gelo);
+  padding: 5px 0;
+  position: relative;
+}
+
+
+
+
+.BotaoHeader::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--gelo);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-in-out;
+}
+
+.BotaoHeader:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

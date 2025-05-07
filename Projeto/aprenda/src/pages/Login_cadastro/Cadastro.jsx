@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Cadastro.module.css';
 
-function Cadastro() {
+function Cadastro({ onSwitch }) {
   const [etapa, setEtapa] = useState(1);
   const [dados, setDados] = useState({
     email: '',
@@ -99,6 +99,12 @@ function Cadastro() {
   };
 
   return (
+    <motion.div
+          initial={{ x: 300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -300, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
     <div className={styles.body}>
       <div className={styles.container}>
         <div className={styles.rightPanel}>
@@ -253,6 +259,7 @@ function Cadastro() {
         </div>
       </div>
     </div>
+    </motion.div>
   );
 }
 
