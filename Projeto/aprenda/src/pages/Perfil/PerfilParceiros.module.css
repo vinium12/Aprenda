@@ -40,10 +40,23 @@
   .btnParceria:hover {
     background-color: #218838;
   }
-  .comum {
-    background-color: #d2f8d2;
-    border-left: 5px solid #28a745;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
+
+
+  .selecaoParceria {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
+  
+  .selecaoParceria label {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .selecaoParceria select {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
