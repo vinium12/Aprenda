@@ -25,8 +25,10 @@ function Login() {
       axios
         .post("http://localhost:3001/login", values)
         .then((res) => {
-          const { token, perfil_configurado } = res.data;
+          const { token, perfil_configurado, userId } = res.data; // Extraindo o userId
           login(token, perfil_configurado);
+          localStorage.setItem("userId", userId); // Agora você salva corretamente o userId
+      
           alert("Login feito com sucesso!");
           if (perfil_configurado) {
             navigate("/HomePosLogin");

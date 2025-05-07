@@ -100,6 +100,24 @@ INSERT INTO `usuarios` (`id`, `nome`, `sobrenome`, `email`, `celular`, `data_nas
 (10, 'das', 'a', 'funci@gmail.com', '123124', '2025-05-02', '$2b$10$lMUwaSyqjXYXViU.dfZUAuBlNhzethRmJdEF0PKRZACdCiySoadpu', 'ad', '2025-05-02 23:54:12', 1),
 (11, 'das', 'dsad', 'davidrgarcia1974@gmail.com', '12414', '2025-05-02', '$2b$10$sTITWwF7OB.BCA392PgHdecdHqahBvePy5OHJ11lkJqtE.pxGXv5.', 'adsa', '2025-05-03 00:59:43', 1);
 
+
+
+CREATE TABLE `parcerias` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `parceiro_id` int(11) NOT NULL,
+  `habilidade_id` int(11) DEFAULT NULL,  -- ou objetivo_id, dependendo de qual você usar para corresponder
+  `objetivo_id` int(11) DEFAULT NULL,    -- caso você use objetivo_id
+  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`parceiro_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`habilidade_id`) REFERENCES `habilidades` (`id`) ON DELETE CASCADE,  -- se for habilidade
+  FOREIGN KEY (`objetivo_id`) REFERENCES `objetivos` (`id`) ON DELETE CASCADE  -- se for objetivo
+);
+
+
+
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 

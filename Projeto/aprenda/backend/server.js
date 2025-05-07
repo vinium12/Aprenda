@@ -83,7 +83,12 @@ app.post('/login', async (req, res) => {
   
   const token = jwt.sign({ id: usuario.id, email: usuario.email }, SECRET, { expiresIn: '7d' });
 
-  res.json({ token, perfil_configurado: usuario.perfil_configurado });
+  res.json({ token, userId: usuario.id,  perfil_configurado: usuario.perfil_configurado });
+});
+
+app.get('/me', autenticarToken, async (req, res) => {
+  const userId = req.user.id;
+  // buscar dados do usuário pelo userId e retornar
 });
 
 app.post('/configurar-perfil', autenticarToken, async (req, res) => {
@@ -302,6 +307,108 @@ app.get('/usuarios-similares', autenticarToken, async (req, res) => {
     res.status(500).json({ erro: 'Erro ao buscar usuários similares' });
   }
 });
+
+
+
+
+
+app.get('/perfil-parceiro/:id', async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const db = await getDbConnection();
+    
+    // 1. Dados do usuário
+    const [usuarioRows] = await db.query(
+      `SELECT id, nome_usuario, imagem 
+      FROM usuarios 
+      WHERE id = ?`,
+      [userId]
+    );
+
+    if (usuarioRows.length === 0) {
+      return res.status(404).json({ erro: 'Usuário não encontrado' });
+    }
+
+    const usuario = {
+      ...usuarioRows[0],
+      imagem_url: usuarioRows[0].imagem
+        ? `http://localhost:3001/${usuarioRows[0].imagem}`
+        : null
+    };
+
+    // 2. Habilidades
+    const [habilidades] = await db.query(
+      `SELECT h.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+      FROM habilidades h
+      JOIN categorias c ON h.categoria_id = c.id
+      LEFT JOIN subcategorias s ON h.subcategoria_id = s.id
+      WHERE h.usuario_id = ?`,
+      [userId]
+    );
+
+    // 3. Objetivos
+    const [objetivos] = await db.query(
+      `SELECT o.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+      FROM objetivos o
+      JOIN categorias c ON o.categoria_id = c.id
+      LEFT JOIN subcategorias s ON o.subcategoria_id = s.id
+      WHERE o.usuario_id = ?`,
+      [userId]
+    );
+
+    res.json({
+      usuario,
+      habilidades,
+      objetivos
+    });
+
+  } catch (error) {
+    console.error('Erro ao carregar perfil do parceiro:', error);
+    res.status(500).json({ erro: 'Erro ao carregar perfil do parceiro', detalhe: error.message });
+  }
+});
+
+
+
+app.post('/fazer-parceria', autenticarToken, async (req, res) => {
+  const userId = req.user.id;
+  const { parceiroId, habilidadeId, objetivoId } = req.body;
+
+  try {
+    const db = await getDbConnection();
+
+    // Verifica se o usuário tem essa habilidade e o parceiro tem o objetivo correspondente
+    const [habilidadeUsuario] = await db.query(
+      'SELECT * FROM habilidades WHERE id = ? AND usuario_id = ?',
+      [habilidadeId, userId]
+    );
+    const [objetivoParceiro] = await db.query(
+      'SELECT * FROM objetivos WHERE id = ? AND usuario_id = ?',
+      [objetivoId, parceiroId]
+    );
+
+    // Verifica se a habilidade do usuário é igual ao objetivo do parceiro
+    if (habilidadeUsuario.length === 0) {
+      return res.status(400).send('Habilidade não encontrada ou não pertence ao usuário.');
+    }
+    if (objetivoParceiro.length === 0) {
+      return res.status(400).send('Objetivo não encontrado ou não pertence ao parceiro.');
+    }
+
+    // Agora vamos salvar a parceria na tabela
+    const [result] = await db.query(
+      'INSERT INTO parcerias (usuario_id, parceiro_id, habilidade_id, objetivo_id) VALUES (?, ?, ?, ?)',
+      [userId, parceiroId, habilidadeId, objetivoId]
+    );
+
+    res.status(200).json({ mensagem: 'Parceria criada com sucesso', idParceria: result.insertId });
+  } catch (error) {
+    console.error('Erro ao criar parceria:', error);
+    res.status(500).json({ erro: 'Erro ao criar parceria' });
+  }
+});
+
+
 
 
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'));

@@ -1,0 +1,49 @@
+.container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #1c87df;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .imagemContainer {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .imagemPerfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+  
+  .dadosPerfil p,
+  .habilidades ul,
+  .objetivos ul {
+    margin-bottom: 0.5rem;
+  }
+  
+  .btnParceria {
+    background-color: #28a745;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btnParceria:hover {
+    background-color: #218838;
+  }
+  .comum {
+    background-color: #d2f8d2;
+    border-left: 5px solid #28a745;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+  }

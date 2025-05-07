@@ -106,7 +106,7 @@ function App() {
 
           {/* Perfil de parceiros (privada) */}
           <Route
-            path="/perfilparceiros"
+            path="/perfil-parceiro/:id"
             element={token ? <PerfilParceiros /> : <Navigate to="/login" />}
           />
 
