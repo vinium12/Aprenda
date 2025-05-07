@@ -255,6 +255,7 @@ function Cadastro({ onSwitch }) {
                         {erros.confirmarSenha && (
                       <div className={styles.error}>{erros.confirmarSenha}</div>
                     )}
+                     <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>
                 </motion.div>
               )}
 
