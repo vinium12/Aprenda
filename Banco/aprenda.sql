@@ -106,15 +106,10 @@ CREATE TABLE `parcerias` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `parceiro_id` int(11) NOT NULL,
-  `habilidade_id` int(11) DEFAULT NULL,  -- ou objetivo_id, dependendo de qual você usar para corresponder
-  `objetivo_id` int(11) DEFAULT NULL,    -- caso você use objetivo_id
-  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`parceiro_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`habilidade_id`) REFERENCES `habilidades` (`id`) ON DELETE CASCADE,  -- se for habilidade
-  FOREIGN KEY (`objetivo_id`) REFERENCES `objetivos` (`id`) ON DELETE CASCADE  -- se for objetivo
-);
+  `habilidade_id` int(11) DEFAULT NULL, 
+  `objetivo_id` int(11) DEFAULT NULL,  
+  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp()
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 
@@ -173,3 +168,13 @@ COMMIT;
 
 ALTER TABLE `usuarios`
 ADD COLUMN `imagem` VARCHAR(255) DEFAULT NULL AFTER `perfil_configurado`;
+
+ALTER TABLE `parcerias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_usuario_parceria` (`usuario_id`),
+  ADD KEY `idx_parceiro_parceria` (`parceiro_id`),
+  ADD CONSTRAINT `fk_usuario_parceria` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_parceiro_parceria` FOREIGN KEY (`parceiro_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_habilidade_parceria` FOREIGN KEY (`habilidade_id`) REFERENCES `habilidades` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_objetivo_parceria` FOREIGN KEY (`objetivo_id`) REFERENCES `objetivos` (`id`) ON DELETE CASCADE;

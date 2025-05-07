@@ -7,30 +7,24 @@ export const AuthProvider = ({ children }) => {
   const [perfilConfigurado, setPerfilConfigurado] = useState(
     localStorage.getItem('perfil_configurado') === 'true'
   );
-  const [usuario, setUsuario] = useState(
-    JSON.parse(localStorage.getItem('usuario')) || null
-  );
 
-  const login = (token, perfilConfigurado, usuario) => {
+  const login = (token, perfilConfigurado) => {
     localStorage.setItem('token', token);
     localStorage.setItem('perfil_configurado', perfilConfigurado ? 'true' : 'false');
-    localStorage.setItem('usuario', JSON.stringify(usuario));
     setToken(token);
     setPerfilConfigurado(perfilConfigurado);
-    setUsuario(usuario);
+
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('perfil_configurado');
-    localStorage.removeItem('usuario');
     setToken(null);
     setPerfilConfigurado(false);
-    setUsuario(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, perfilConfigurado, usuario, login, logout, setPerfilConfigurado }}>
+    <AuthContext.Provider value={{ token, perfilConfigurado, login, logout, setPerfilConfigurado }}>
       {children}
     </AuthContext.Provider>
   );
