@@ -20,7 +20,7 @@ main{
   display: flex;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
-  height: 90vh;
+  height: 60vh;
 }
 
 .Esquerda {
@@ -92,6 +92,12 @@ main{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.btns{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .bloco textarea{
   width: 100%;
   height: 90px;
@@ -125,6 +131,28 @@ main{
   transition: all 0.2s ease-in-out;
   width: 300px;
   height: 35px;
+}
+
+.btnProximaEtapa{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #2C3DDC;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);    
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 300px;
+  height: 35px;
+}
+
+.btnProximaEtapa:hover{
+  background-color: #222EB3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .finalizar button:hover{

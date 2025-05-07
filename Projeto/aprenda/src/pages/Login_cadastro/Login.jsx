@@ -11,6 +11,7 @@ import styles from "./Login.module.css";
 function Login({ onSwitch }) {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [mostrarSenha, setMostrarSenha] = React.useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -86,14 +87,28 @@ function Login({ onSwitch }) {
               {formik.errors.email && <div className={styles.error}>{formik.errors.email}</div>}
 
               <label>Senha</label>
-              <input
-                type="password"
-                name="senha"
-                placeholder="Coloque sua senha"
-                value={formik.values.senha}
-                onChange={formik.handleChange}
-              />
-              {formik.errors.senha && <div className={styles.error}>{formik.errors.senha}</div>}
+                <div className={styles.senhaWrapper}>
+                  <input
+                    type={mostrarSenha ? "text" : "password"}
+                    name="senha"
+                    placeholder="Coloque sua senha"
+                    value={formik.values.senha}
+                    onChange={formik.handleChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setMostrarSenha(!mostrarSenha)}
+                    className={styles.toggleSenha}
+                    aria-label="Mostrar ou ocultar senha"
+                  >
+                    {mostrarSenha ?  <img src="./src/assets/icons/OlhoAberto.svg" alt="OlhoAberto"/>
+                      : <img src="./src/assets/icons/olhofechado.svg" alt="olhofechado"/>
+                    }
+
+                  </button>
+                </div>
+                {formik.errors.senha && <div className={styles.error}>{formik.errors.senha}</div>}
+
 
               <div className={styles.rememberContainer}>
                 <input type="checkbox" id="remember" />
@@ -104,7 +119,7 @@ function Login({ onSwitch }) {
 
               <button type="button" className={styles.BotaoDeEntrarPorGoogle}>
                 <img
-                  src="https://developers.google.com/identity/images/g-logo.png"
+                  src="./src/assets/icons/google-icon.svg"
                   alt="Google"
                   width="20"
                 />
@@ -118,7 +133,6 @@ function Login({ onSwitch }) {
       </div>
     </motion.div>
   );
-
 }
 
 export default Login;
