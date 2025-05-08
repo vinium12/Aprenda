@@ -164,7 +164,7 @@ const ConfigurarPerfil = () => {
             <>
               <div className={styles.cabecalho}>
                 <h2>🎯 O que você pode ensinar?</h2>{" "}
-                <p>*Máximo 3 habilidades</p>
+                <p className={styles.obs}>*Máximo 3 habilidades</p>
               </div>
 
               <div className={styles.filtros}>
@@ -262,7 +262,7 @@ const ConfigurarPerfil = () => {
           {etapa === 2 && (
             <>
               <div className={styles.cabecalho}>
-                <h2>📘 O que você quer aprender?</h2> <p>*Máximo 3 objetivos</p>
+                <h2>📘 O que você quer aprender?</h2> <p className={styles.obs}>*Máximo 3 objetivos</p>
               </div>
 
               <div className={styles.filtros}>
