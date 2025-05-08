@@ -20,6 +20,7 @@ import Scroll from "./components/Scroll";
 import Footer from "./components/Footer";
 import "./App.css";
 
+
 const PERFIL_KEY = "perfilConfigurado";
 
 function App() {
