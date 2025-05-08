@@ -163,7 +163,8 @@
   border-radius: 30px;
   padding: 6px 12px;
   gap: 12px;
-  height: 40px;
+  height: clamp(40px, 5vw, 40px);
+  white-space: nowrap;
 }
 
 .olaUsuario {
@@ -191,7 +192,6 @@
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
     align-items: center;
     height: auto;
     padding: 15px;
@@ -199,33 +199,38 @@
 
   .botoes {
     justify-content: center;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .logo {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
 
   .btnLogin,
   .btnCadastro,
   .config,
   .sair {
-    width: 100%;
+    width: 70px;
     font-size: 12px;
   }
 
+  .olaUsuario {
+    display: none;
+  }
+
   .usuarioContainer {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: clamp(40px, 5vw, 40px);
+    padding: 0px;
   }
 
   .fotoPerfilMini {
-    width: 25px;
-    height: 25px;
-  }
-
-  .olaUsuario {
-    font-size: 0.8rem;
+    width: 28px;
+    height: 28px;
   }
 }
 
@@ -235,14 +240,16 @@
   }
 
   .logo {
-    height: 30px;
+    height: 20px;
   }
+
+.botoes{
+  padding-right: 5px;
+}
 
   .btnLogin,
   .btnCadastro,
   .config {
-    width: 100%;
     font-size: 12px;
-    margin-bottom: 10px;
   }
 }

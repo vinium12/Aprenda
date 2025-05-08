@@ -583,10 +583,10 @@ app.get('/sessoes/:parceriaId', autenticarToken, async (req, res) => {
 });
 
 //essa parte é a do google mas nao to conseguindo fazer funcionar essa bomba
-const express = require("express");
+// const express = require("express"); ja ta declarado la em cima, comentei pq n ta deixando rodar o servidor
 const router = express.Router();
 const { OAuth2Client } = require("google-auth-library");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken"); mesma coisa, ta declarado la em cima
 
 const CLIENT_ID = "448708226167-a50kmb5p49our8d503qqkfd5bj16prtj.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
