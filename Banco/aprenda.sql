@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/05/2025 às 06:44
+-- Tempo de geração: 08/05/2025 às 04:46
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,6 +26,8 @@ SET time_zone = "+00:00";
 --
 -- Estrutura para tabela `categorias`
 --
+CREATE database `aprenda`;
+use `aprenda`;
 
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
@@ -61,12 +63,17 @@ CREATE TABLE `habilidades` (
 --
 
 INSERT INTO `habilidades` (`id`, `usuario_id`, `categoria_id`, `subcategoria_id`, `nivel_abilidade`, `descricao`) VALUES
-(19, 14, 1, 1, 'medio', 'Python'),
-(20, 14, 1, 1, 'medio', 'Java'),
-(21, 14, 1, 1, 'avancado', 'HTML '),
-(22, 13, 2, 3, 'baixo', 'Chute de 3 dedos '),
-(23, 13, 2, 4, 'medio', 'Arremesso longo '),
-(24, 15, 3, 5, 'medio', 'Funções');
+(7, 8, 1, 1, 'baixo', 'a'),
+(8, 8, 1, 1, 'medio', 'a'),
+(9, 8, 1, 1, 'intermediario', 'a'),
+(10, 10, 1, 1, '', ''),
+(11, 10, 1, 1, 'medio', 'a'),
+(12, 10, 1, 1, '', ''),
+(13, 10, 1, 1, '', ''),
+(14, 10, 1, 1, '', ''),
+(15, 11, 1, 1, '', ''),
+(16, 11, 1, 1, '', ''),
+(17, 11, 2, 4, 'baixo', 'asd');
 
 -- --------------------------------------------------------
 
@@ -88,11 +95,17 @@ CREATE TABLE `objetivos` (
 --
 
 INSERT INTO `objetivos` (`id`, `usuario_id`, `categoria_id`, `subcategoria_id`, `nivel_abilidade`, `descricao`) VALUES
-(19, 14, 2, 3, 'baixo', 'Quero aprender como chutar bem'),
-(20, 14, 2, 4, 'medio', 'Quero aprender como arremessar '),
-(21, 13, 1, 1, 'baixo', 'Como codar '),
-(22, 15, 1, 1, 'baixo', 'Python'),
-(23, 15, 2, 3, 'baixo', 'chute');
+(7, 8, 1, 1, 'baixo', 'a'),
+(8, 8, 1, 1, 'medio', 'a'),
+(9, 8, 1, 1, 'intermediario', 'a'),
+(10, 10, 1, 1, '', ''),
+(11, 10, 1, 1, '', ''),
+(12, 10, 1, 1, '', ''),
+(13, 10, 1, 1, '', ''),
+(14, 10, 1, 1, '', ''),
+(15, 11, 1, 1, '', ''),
+(16, 11, 1, 1, '', ''),
+(17, 11, 1, 2, 'avancado', 'asd');
 
 -- --------------------------------------------------------
 
@@ -114,8 +127,8 @@ CREATE TABLE `parcerias` (
 --
 
 INSERT INTO `parcerias` (`id`, `usuario_id`, `parceiro_id`, `habilidade_id`, `objetivo_id`, `data_criacao`) VALUES
-(4, 14, 13, 22, 19, '2025-05-08 04:24:17'),
-(5, 13, 14, 19, 21, '2025-05-08 04:30:17');
+(1, 11, 8, 7, 15, '2025-05-08 01:01:20'),
+(2, 8, 8, 7, 7, '2025-05-08 02:26:20');
 
 -- --------------------------------------------------------
 
@@ -133,6 +146,14 @@ CREATE TABLE `sessoes` (
   `arquivo` varchar(255) DEFAULT NULL,
   `data_criacao` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `sessoes`
+--
+
+INSERT INTO `sessoes` (`id`, `usuario_id`, `parceria_id`, `tema`, `descricao`, `link_conteudo`, `arquivo`, `data_criacao`) VALUES
+(1, 11, 1, 'dsa', 'asas', 'asd', 'usuario_11.pdf', '2025-05-08 02:10:09'),
+(2, 11, 1, 'as', 'asd', 'sd', 'usuario_11.pdf', '2025-05-08 02:15:29');
 
 -- --------------------------------------------------------
 
@@ -183,9 +204,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `sobrenome`, `email`, `celular`, `data_nascimento`, `senha`, `nome_usuario`, `data_cadastro`, `perfil_configurado`, `imagem`) VALUES
-(13, 'David', 'Romero', 'DavidRomero@gmail.com', '11 96578-7828', '2007-08-13', '$2b$10$YRVFHcJmHTqg3tVKoXqyuO0bPNLz32Z7vhY/N.LWGR7Ur252qhOhq', 'Davi_Rei_Delas', '2025-05-08 04:11:06', 1, 'assets/images/usuario_13.png'),
-(14, 'Gustavo', 'Souza', 'GustavoSouza@gmail.com', '11 97709-9445', '2007-06-08', '$2b$10$jx81KUrhRqRcs5Tfs25Pq.nSOBZsDCvp1mZG6rx0UOnxCixPMsOhy', 'Guto_0', '2025-05-08 04:12:45', 1, NULL),
-(15, 'Vinicius', 'Fernandes', 'ViniciusFernandes@gmail.com', '11 96752-3300', '2008-02-04', '$2b$10$WXM926aX1criTE4PTmmCYexsnjvfgAZdj.rqxPFixdE6LH.uMvD96', 'Vininho', '2025-05-08 04:27:13', 1, NULL);
+(3, 'Casso', '', 'cassioa@gmail.com', '', '0000-00-00', '$2b$10$MWjWRqA6ZRsku5i5bmicE.Maa35LjT6V/thi6agSQd1HdWfIl39f.', '', '2025-04-30 21:02:13', 0, NULL),
+(7, 'eu', 'tu', 'olabomdia@gmail.com', '4444444', '2025-04-15', '$2b$10$vRZEl4cwZPTtrskM8kzfR.VUumdHISVKAo4RVjFDQW56lUzo/LLCu', 'dgfe', '2025-04-30 21:08:18', 0, NULL),
+(8, 'das', 'd', 'cassioadm@gmail.com', '21412414', '2025-05-02', '$2b$10$3B8QKwp7JadrJ4PidfzNle63SFBuV1Vm5136z0rCDV67c8OXK7bGO', 'a', '2025-05-02 21:26:38', 1, NULL),
+(10, 'das', 'a', 'funci@gmail.com', '123124', '2025-05-02', '$2b$10$lMUwaSyqjXYXViU.dfZUAuBlNhzethRmJdEF0PKRZACdCiySoadpu', 'ad', '2025-05-02 23:54:12', 1, NULL),
+(11, 'das', 'dsad', 'davidrgarcia1974@gmail.com', '12414', '2025-05-02', '$2b$10$sTITWwF7OB.BCA392PgHdecdHqahBvePy5OHJ11lkJqtE.pxGXv5.', 'adsa', '2025-05-03 00:59:43', 1, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -261,19 +284,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de tabela `habilidades`
 --
 ALTER TABLE `habilidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `objetivos`
 --
 ALTER TABLE `objetivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `parcerias`
 --
 ALTER TABLE `parcerias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `sessoes`
@@ -291,7 +314,7 @@ ALTER TABLE `subcategorias`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para tabelas despejadas
