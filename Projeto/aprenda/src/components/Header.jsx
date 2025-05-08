@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import { useAuth } from "../context/AuthContext.jsx";
+import defaultImg from "../assets/images/Estudante.svg";
 
-const Header = ({ isAuthenticated, onLogout }) => {
+
+
+const Header = () => {
   const navigate = useNavigate();
+  const { usuario, logout, token } = useAuth();
+
+  const isAuthenticated = !!token;
 
   return (
     <header className={styles.header}>
@@ -11,27 +18,41 @@ const Header = ({ isAuthenticated, onLogout }) => {
         src="/AprendaLogo.svg"
         alt="logo_header"
         draggable="false"
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
       />
       <nav className={styles.botoes}>
         {!isAuthenticated ? (
           <>
-            <button className={styles.btnLogin} onClick={() => navigate('/login')}>
+            <button className={styles.btnLogin} onClick={() => navigate("/login")}>
               Login
             </button>
-            <button className={styles.btnCadastro} onClick={() => navigate('/cadastro')}>
+            <button className={styles.btnCadastro} onClick={() => navigate("/cadastro")}>
               Cadastro
             </button>
           </>
         ) : (
           <>
-           
-            <button className={styles.BotaoHeader} onClick={() => navigate('/home-logado')}>Home</button>
-            <button className={styles.BotaoHeader}onClick={() => navigate('/parcerias')}>Parcerias</button>
-            <button className={styles.BotaoHeader}onClick={() => navigate('/sessao')}>Sessão</button>
-            <button className={styles.sair} onClick={onLogout}>Sair</button>
-            <button className={styles.config} onClick={() => navigate('/perfil')}>
-              Meu Perfil
+            <button className={styles.BotaoHeader} onClick={() => navigate("/home-logado")}>
+              Home
+            </button>
+            <button className={styles.BotaoHeader} onClick={() => navigate("/sessao")}>
+              Sessão
+            </button>
+
+            <div className={styles.usuarioContainer}>
+              <span className={styles.olaUsuario}>
+                Olá, {usuario?.nome?.split(" ")[0]}!
+              </span>
+              <img
+                src={usuario.imagem_url || defaultImg} 
+                alt="Perfil"
+                className={styles.fotoPerfilMini}
+                onClick={() => navigate("/perfil")}
+              />
+            </div>
+
+            <button className={styles.sair} onClick={logout}>
+              Sair
             </button>
           </>
         )}

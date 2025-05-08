@@ -1,8 +1,8 @@
-/* HEADER - Mantido como estava, com flex para alinhamento e altura definida */
 * {
   margin: 0px;
   padding: 0px;
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -24,9 +24,11 @@
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
+
 .logo:hover {
   transform: scale(1.1);
 }
+
 .botoes {
   display: flex;
   justify-content: flex-end;
@@ -83,20 +85,24 @@
   color: var(--gelo);
   background-color: #d84a4a;
   border: none;
-  border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);
-  height: clamp(25px, 5vw, 40px);
-  width: clamp(80px, 20vw, 150px);
+  border-radius: 15px;
+  font-size: 0.85rem;
+  height: 30px;
+  width: 80px;
+  padding: 0 16px;
   cursor: pointer;
   outline: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
 }
 
 .sair:hover {
   background-color: #b93c3c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
 }
 
 .config {
@@ -149,4 +155,94 @@
 .BotaoHeader:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.usuarioContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 6px 12px;
+  gap: 12px;
+  height: 40px;
+}
+
+.olaUsuario {
+  font-size: 0.9rem;
+  color: var(--gelo);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fotoPerfilMini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.fotoPerfilMini:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 15px;
+  }
+
+  .botoes {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .btnLogin,
+  .btnCadastro,
+  .config,
+  .sair {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .usuarioContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fotoPerfilMini {
+    width: 25px;
+    height: 25px;
+  }
+
+  .olaUsuario {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px;
+  }
+
+  .logo {
+    height: 30px;
+  }
+
+  .btnLogin,
+  .btnCadastro,
+  .config {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
 }
