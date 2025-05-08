@@ -499,7 +499,7 @@ FROM parcerias p
 JOIN usuarios u ON u.id = p.parceiro_id
 LEFT JOIN habilidades h ON h.id = p.habilidade_id
 LEFT JOIN objetivos o ON o.id = p.objetivo_id
-WHERE p.usuario_id = 11;
+WHERE p.usuario_id = ?;
 
     `, [req.user.id]);
 
@@ -584,7 +584,7 @@ app.get('/sessoes/:parceriaId', autenticarToken, async (req, res) => {
 
 //essa parte é a do google mas nao to conseguindo fazer funcionar essa bomba
 // const express = require("express"); ja ta declarado la em cima, comentei pq n ta deixando rodar o servidor
-const router = express.Router();
+/*const router = express.Router();
 const { OAuth2Client } = require("google-auth-library");
 // const jwt = require("jsonwebtoken"); mesma coisa, ta declarado la em cima
 
@@ -629,5 +629,5 @@ router.post("/login-google", async (req, res) => {
 
 module.exports = router;
 
-
+*/
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'));

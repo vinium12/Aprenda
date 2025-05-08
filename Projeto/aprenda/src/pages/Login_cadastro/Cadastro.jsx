@@ -127,12 +127,6 @@ function Cadastro({ onSwitch }) {
                     onChange={handleChange}
                   />
                   {erros.email && <div className={styles.error}>{erros.email}</div>}
-
-                  <p className={styles.ou}>ou</p>
-                  <button type="button" className={styles.googleButton}>
-                    <img src="./src/assets/icons/google-icon.svg" alt="Google icon" width="20" className={styles.googleImg}/>
-                    Entrar com Google
-                  </button>
                   
 
                   <button type="button" className={styles.BotaoDeContinuar} onClick={handleNext}>Próxima Etapa</button>

@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { GoogleLogin } from "@react-oauth/google"; // Use o componente diretamente
+
 
 import styles from "./Login.module.css";
 
@@ -163,12 +163,6 @@ function Login({ onSwitch }) {
               <button type="submit" className={styles.botaoQueConfirma}>
                 Entrar
               </button>
-
-              {/* Componente GoogleLogin diretamente aqui */}
-              <GoogleLogin
-                onSuccess={googleLoginSuccess}
-                onError={googleLoginError}
-              />
 
               {/* <div className={styles.EsqueceuSenha}>Esqueceu sua senha?</div> */}
             </form>

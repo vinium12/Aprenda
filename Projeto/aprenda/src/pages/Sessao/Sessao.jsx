@@ -94,7 +94,7 @@ const Sessao = () => {
           const parceriasComObjetivos = response.data.map(parceria => ({
             id: parceria.id,
             objetivo: parceria.objetivo,
-            parceiroNome: parceria.nome_parceiro
+            parceiroNome: parceria.nome_usuario // <-- correção aqui
           }));
           setObjetivos(parceriasComObjetivos);
         } else {
@@ -109,6 +109,7 @@ const Sessao = () => {
   
 
   return (
+    <div className={styles.tudo}>
     <div className={styles.container}>
       <div className={styles.Esquerdo}>
         <img src={IconeEsc} alt="Ilustração sessão" />
@@ -184,6 +185,7 @@ const Sessao = () => {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 };
