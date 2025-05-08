@@ -155,10 +155,10 @@ function Login({ onSwitch }) {
                 <div className={styles.error}>{formik.errors.senha}</div>
               )}
 
-              <div className={styles.rememberContainer}>
+              {/* <div className={styles.rememberContainer}>
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">&nbsp;Lembrar-me</label>
-              </div>
+              </div> */}
 
               <button type="submit" className={styles.botaoQueConfirma}>
                 Entrar
@@ -170,7 +170,7 @@ function Login({ onSwitch }) {
                 onError={googleLoginError}
               />
 
-              <div className={styles.EsqueceuSenha}>Esqueceu sua senha?</div>
+              {/* <div className={styles.EsqueceuSenha}>Esqueceu sua senha?</div> */}
             </form>
           </div>
         </div>
