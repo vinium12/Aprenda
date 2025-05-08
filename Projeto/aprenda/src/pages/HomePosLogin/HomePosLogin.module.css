@@ -1,6 +1,10 @@
+.body{
+  font-family: "Montserrat", sans-serif;
+}
+
 .containerHomePos {
   padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #f9fafc;
 }
 

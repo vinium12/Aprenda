@@ -1,3 +1,7 @@
+.body{
+  font-family: "Montserrat", sans-serif;
+}
+
 .container {
   padding: 2rem;
 }
@@ -6,7 +10,7 @@
   padding: 2rem;
   background: #f8f9fc;
   min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Montserrat", sans-serif;;
 }
 
 /* Título principal */
