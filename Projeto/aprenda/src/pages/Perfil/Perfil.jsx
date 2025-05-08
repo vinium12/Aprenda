@@ -3,7 +3,8 @@ import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './Perfil.module.css';
-import defaultImg from '../../assets/images/Estudante.svg'; // imagem padrão
+import defaultImg from '../../assets/images/Estudante.svg';
+import CardHabilidade from "../../components/CardHabilidade";
 
 function Perfil() {
   const navigate = useNavigate();
@@ -52,79 +53,74 @@ function Perfil() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Meu Perfil</h1>
+    <div className={styles.perfilContainer}>
+      <div className={styles.topo}>
+        <h2 className={styles.titulo}>Meu Perfil</h2>
+      </div>
 
       {usuario && (
         <>
-          <input
-            type="file"
-            id="uploadImagem"
-            accept="image/*"
-            onChange={handleImagemSelecionada}
-            style={{ display: 'none' }}
-          />
+          <div className={styles.cardPerfil}>
+            <div className={styles.imagemENome}>
+              <div
+                className={styles.imagemContainer}
+                onClick={() => document.getElementById('uploadImagem').click()}
+                title="Clique para trocar a imagem"
+              >
+                <img
+                  src={usuario.usuario.imagem_url || defaultImg}
+                  alt="Imagem do usuário"
+                  className={styles.imagemPerfil}
+                />
+              </div>
 
-          <div
-            className={styles.imagemContainer}
-            onClick={() => document.getElementById('uploadImagem').click()}
-            title="Clique para trocar a imagem"
-          >
-            <img
-              src={usuario.usuario.imagem_url || defaultImg}
-              alt="Imagem do usuário"
-              className={styles.imagemPerfil}
-            />
-            <div className={styles.overlay}>
-              {usuario.usuario.imagem_url ? 'Trocar imagem' : 'Salvar imagem'}
+              <input
+                type="file"
+                id="uploadImagem"
+                accept="image/*"
+                onChange={handleImagemSelecionada}
+                style={{ display: 'none' }}
+              />
+
+              <div className={styles.infoUsuario}>
+                <h3 className={styles.nome}>
+                  {usuario.usuario.nome} {usuario.usuario.sobrenome}
+                </h3>
+                <p className={styles.username}>@{usuario.usuario.nome_usuario}</p>
+                <p><strong>Email:</strong> {usuario.usuario.email}</p>
+                <p><strong>Celular:</strong> {usuario.usuario.celular}</p>
+                <p><strong>Data de nascimento:</strong> {usuario.usuario.data_nascimento}</p>
+              </div>
             </div>
+
+            <button onClick={handleConfigurarPerfil} className={styles.botaoEditar}>
+              Adicionar Objetivos e habilidades
+            </button>
           </div>
 
-          <div className={styles.dadosPerfil}>
-            <p><strong>Nome de usuário:</strong> {usuario.usuario.nome_usuario}</p>
-            <p><strong>Nome:</strong> {usuario.usuario.nome} {usuario.usuario.sobrenome}</p>
-            <p><strong>Email:</strong> {usuario.usuario.email}</p>
-            <p><strong>Celular:</strong> {usuario.usuario.celular}</p>
-            <p><strong>Data de nascimento:</strong> {usuario.usuario.data_nascimento}</p>
+          <div className={styles.secaoCards}>
+            <h3 className={styles.subtitulo}>Habilidades que pode ensinar:</h3>
+            <CardHabilidade
+              dados={usuario.habilidades}
+              tipo="ensinar"
+              categorias={usuario.categorias}
+              subcategorias={usuario.subcategorias}
+            />
           </div>
 
-          <div className={styles.habilidades}>
-            <h3>Habilidades para ensinar:</h3>
-            {usuario.habilidades.length > 0 ? (
-              <ul>
-                {usuario.habilidades.map((hab, i) => (
-                  <li key={i}>
-                    {hab.categoria_nome} - {hab.subcategoria_nome}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Você ainda não adicionou habilidades.</p>
-            )}
+          <div className={styles.secaoCards}>
+            <h3 className={styles.subtitulo}>Objetivos de aprendizado:</h3>
+            <CardHabilidade
+              dados={usuario.objetivos}
+              tipo="aprender"
+              categorias={usuario.categorias}
+              subcategorias={usuario.subcategorias}
+            />
           </div>
-
-          <div className={styles.objetivos}>
-            <h3>Objetivos de aprendizagem:</h3>
-            {usuario.objetivos.length > 0 ? (
-              <ul>
-                {usuario.objetivos.map((obj, i) => (
-                  <li key={i}>
-                    {obj.categoria_nome} - {obj.subcategoria_nome}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Você ainda não adicionou objetivos.</p>
-            )}
-          </div>
-
-          <button onClick={handleConfigurarPerfil} className={styles.btnConfigurar}>
-            Configurar habilidades e objetivos
-          </button>
         </>
       )}
     </div>
   );
-}
+};
 
 export default Perfil;
