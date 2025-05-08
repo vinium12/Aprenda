@@ -111,7 +111,7 @@
 }
 
 .imagemContainer:hover {
-  transform: scale(1.1); /* Aplica o zoom no container inteiro */
+  transform: scale(1.1);
 }
 
 .imagemPerfil {

@@ -65,7 +65,7 @@ function HomePosLogin() {
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerHomePos}>
       <h2>Parcerias Realizadas</h2>
       <div className={styles.usuariosList}>
         {parcerias.length > 0 ? (

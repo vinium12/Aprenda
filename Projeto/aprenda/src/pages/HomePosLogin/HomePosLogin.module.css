@@ -1,48 +1,97 @@
-/* HomePosLogin.module.css */
-.container {
-    padding: 20px;
-  }
-  
-  .usuariosList {
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .usuarioCard {
-    width: 200px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .usuarioImage {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  h3 {
-    font-size: 1.2em;
-    margin: 10px 0;
-  }
+.containerHomePos {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fafc;
+}
 
-  .verPerfilButton {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
-  }
-  
-  .verPerfilButton:hover {
-    background-color: #0056b3;
-  }
-  
+.containerHomePos h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.usuariosList {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.usuarioCard {
+  width: 220px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.usuarioCard:hover {
+  transform: translateY(-5px);
+}
+
+.usuarioImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 12px auto;
+  display: block;
+  border: 3px solid #007BFF;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 8px 0 4px;
+  color: #222;
+}
+
+.usuarioCard p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 2px 0;
+}
+
+.verPerfilButton,
+.sessoesPostadasButton,
+.downloadButton {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: #007BFF;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.verPerfilButton:hover,
+.sessoesPostadasButton:hover,
+.downloadButton:hover {
+  background-color: #0056b3;
+}
+
+.sessoesPostadasList {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #eef2f6;
+  border-radius: 12px;
+}
+
+.sessaoCard {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.downloadButton {
+  margin-top: 8px;
+}
