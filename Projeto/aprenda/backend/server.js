@@ -458,5 +458,32 @@ app.post('/fazer-parceria', autenticarToken, async (req, res) => {
 
 });
 
+app.get('/parcerias', autenticarToken, async (req, res) => {
+  try {
+    const conexao = await getDbConnection();
+
+    const [resultado] = await conexao.query(`
+  SELECT 
+  p.id, 
+  u.nome_usuario, 
+  h.descricao AS habilidade,  -- Substituindo 'nome' por 'descricao' na tabela 'habilidades'
+  o.descricao AS objetivo,    -- Substituindo 'nome' por 'descricao' na tabela 'objetivos'
+  u.id AS usuario_id
+FROM parcerias p
+JOIN usuarios u ON u.id = p.parceiro_id
+LEFT JOIN habilidades h ON h.id = p.habilidade_id
+LEFT JOIN objetivos o ON o.id = p.objetivo_id
+WHERE p.usuario_id = 11;
+
+    `, [req.user.id]);
+
+    res.json(resultado);
+  } catch (erro) {
+    console.error('Erro ao buscar parcerias:', erro);
+    res.status(500).send('Erro no servidor');
+  }
+});
+
+
 
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'));
