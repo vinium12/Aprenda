@@ -1,106 +1,157 @@
 .container {
-    padding: 2rem;
-  }
-  
-  .perfilContainer {
-    padding: 2rem;
-    background: #f8f9fc;
-    min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  /* Título principal */
-  .titulo {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    color: #111;
-  }
-  
-  /* Card branco principal com os dados */
-  .cardPerfil {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  /* Parte com imagem + nome + dados */
-  .imagemENome {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    flex: 1;
-    min-width: 300px;
-  }
+  padding: 2rem;
+}
 
-  .imagemContainer {
-    cursor: pointer;
-  }
-  
-  .imagemPerfil {
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: #ddd;
-  }
+.perfilContainer {
+  padding: 2rem;
+  background: #f8f9fc;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
 
-  .infoUsuario {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  
-  .nome {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .username {
-    font-style: italic;
-    color: #555;
-  }
-  
-  .descricao {
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .infoUsuario p {
-    margin: 0.2rem 0;
-    color: #444;
-  }
+/* Título principal */
+.titulo {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #111;
+}
 
-  .botaoEditar {
-    background-color: #2f42f5;
-    color: white;
-    padding: 0.6rem 4rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    height: fit-content;
-  }
-  
-  .botaoEditar:hover {
-    background-color: #1c28b0;
-  }
-  
+/* Card branco principal com os dados */
+.cardPerfil {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-  .secaoCards {
-    margin-top: 2rem;
-  }
-  
-  .subtitulo {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-  }
+/* Parte com imagem + nome + dados */
+.imagemENome {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex: 1;
+  min-width: 300px;
+}
 
-  
+.imagemContainer {
+  cursor: pointer;
+}
+
+.imagemPerfil {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ddd;
+}
+
+.infoUsuario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nome {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.username {
+  font-style: italic;
+  color: #555;
+}
+
+.descricao {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.infoUsuario p {
+  margin: 0.2rem 0;
+  color: #444;
+}
+
+.botaoEditar {
+  background-color: #2f42f5;
+  color: white;
+  padding: 0.6rem 4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.botaoEditar:hover {
+  background-color: #1c28b0;
+}
+
+.secaoCards {
+  margin-top: 2rem;
+}
+
+.subtitulo {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.imagemContainer {
+  position: relative;
+  cursor: pointer;
+  width: 130px;
+  height: 130px;
+  transition: transform 0.3s ease;
+}
+
+.imagemContainer:hover {
+  transform: scale(1.1); /* Aplica o zoom no container inteiro */
+}
+
+.imagemPerfil {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ddd;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.imagemContainer:hover .overlay {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.iconeEditar {
+  width: 40px;
+  height: 40px;
+  fill: white;
+  transition: transform 0.3s ease;
+}
+
+.imagemContainer:hover .iconeEditar {
+  transform: scale(1.1);
+}
