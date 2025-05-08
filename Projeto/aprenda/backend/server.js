@@ -308,10 +308,14 @@ app.get('/perfil', autenticarToken, async (req, res) => {
       [userId]
     );
 
+    const [categorias] = await db.query('SELECT id, nome FROM categorias');
+    const [subcategorias] = await db.query('SELECT id, nome, categoria_id FROM subcategorias');
     res.json({
       usuario,
       habilidades,
-      objetivos
+      objetivos,
+      categorias,
+      subcategorias
     });
 
   } catch (error) {
@@ -403,32 +407,35 @@ app.get('/perfil-parceiro/:id', async (req, res) => {
         : null
     };
 
-    // 2. Habilidades
-    const [habilidades] = await db.query(
-      `SELECT h.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
-      FROM habilidades h
-      JOIN categorias c ON h.categoria_id = c.id
-      LEFT JOIN subcategorias s ON h.subcategoria_id = s.id
-      WHERE h.usuario_id = ?`,
-      [userId]
-    );
-
-    // 3. Objetivos
-    const [objetivos] = await db.query(
-      `SELECT o.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
-      FROM objetivos o
-      JOIN categorias c ON o.categoria_id = c.id
-      LEFT JOIN subcategorias s ON o.subcategoria_id = s.id
-      WHERE o.usuario_id = ?`,
-      [userId]
-    );
-
-    res.json({
-      usuario,
-      habilidades,
-      objetivos
-    });
-
+      // 2. Habilidades para ensinar
+      const [habilidades] = await db.query(
+        `SELECT h.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+         FROM habilidades h
+         JOIN categorias c ON h.categoria_id = c.id
+         LEFT JOIN subcategorias s ON h.subcategoria_id = s.id
+         WHERE h.usuario_id = ?`,
+        [userId]
+      );
+  
+      // 3. Objetivos para aprender
+      const [objetivos] = await db.query(
+        `SELECT o.*, c.nome AS categoria_nome, s.nome AS subcategoria_nome
+         FROM objetivos o
+         JOIN categorias c ON o.categoria_id = c.id
+         LEFT JOIN subcategorias s ON o.subcategoria_id = s.id
+         WHERE o.usuario_id = ?`,
+        [userId]
+      );
+  
+      const [categorias] = await db.query('SELECT id, nome FROM categorias');
+      const [subcategorias] = await db.query('SELECT id, nome, categoria_id FROM subcategorias');
+      res.json({
+        usuario,
+        habilidades,
+        objetivos,
+        categorias,
+        subcategorias
+      });
   } catch (error) {
     console.error('Erro ao carregar perfil do parceiro:', error);
     res.status(500).json({ erro: 'Erro ao carregar perfil do parceiro', detalhe: error.message });

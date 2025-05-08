@@ -6,6 +6,7 @@
   padding: 20px;
   font-family: "Montserrat", sans-serif;
   background-color: #f9fafc;
+  margin-top: clamp(60px, 10vw, 75px);;
 }
 
 .containerHomePos h2 {
@@ -15,7 +16,7 @@
 }
 
 .usuariosList {
-  margin-top: 30px;
+  margin: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;

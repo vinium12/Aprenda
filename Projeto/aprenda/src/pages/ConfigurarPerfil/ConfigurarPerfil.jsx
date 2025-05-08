@@ -4,7 +4,7 @@ import axios from "axios";
 import SelectWithLabel from "../../components/Select";
 import styles from "./ConfigurarPerfil.module.css";
 import Estudante from "../../assets/images/Estudante.svg";
-import CardHabilidade from "../../components/CardHabilidade";
+import CardHabilidade from "../../components/CardHabilidade2";
 
 const ConfigurarPerfil = () => {
   const [categorias, setCategorias] = useState([]);
@@ -248,6 +248,8 @@ const ConfigurarPerfil = () => {
                 categorias={categorias}
                 subcategorias={subcategoriasEnsinar}
               />
+
+           
               <div className={styles.btns}>
                 <button
                   onClick={() => setEtapa(2)}
