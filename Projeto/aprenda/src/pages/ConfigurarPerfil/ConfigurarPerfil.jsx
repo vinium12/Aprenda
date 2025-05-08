@@ -232,6 +232,7 @@ const ConfigurarPerfil = () => {
                     })
                   }
                 />
+
                 <button
                   onClick={adicionarHabilidadeEnsinar}
                   className={styles.btnHabilidades}
@@ -346,8 +347,8 @@ const ConfigurarPerfil = () => {
               />
 
               <div className={styles.botoesEtapas}>
-                <button onClick={() => setEtapa(1)}>Voltar</button>
-                <button onClick={handleSubmit}>Salvar e finalizar</button>
+                <button onClick={() => setEtapa(1)} className={styles.btnsVoltar}>Voltar</button>
+                <button onClick={handleSubmit} className={styles.btnsFinalizar}>Salvar e finalizar</button>
               </div>
             </>
           )}
