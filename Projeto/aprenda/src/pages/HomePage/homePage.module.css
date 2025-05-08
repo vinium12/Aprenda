@@ -374,6 +374,34 @@
 
 /* Tablets (≤ 768px) */
 @media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .iconeCard {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .iconeCard img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .cardTexto {
+    padding: 16px;
+  }
+
+  .baner {
+    margin-top: -10px;
+  }
   .banerTexto h1 {
     font-size: 28px;
   }
@@ -419,7 +447,18 @@
   }
 
   .imagemFunciona {
-    display: none; /* Remove imagem no mobile */
+    display: none;
+  }
+
+  .imgSobre {
+    display: none;
+  }
+  .sobreTexto p {
+  }
+  .beneficios h2 {
+    margin-top: -25px;
+    padding-top: 30px;
+    border-top: 4px solid #3b5bdb;
   }
 }
 
@@ -428,7 +467,9 @@
   .banerTexto h1 {
     font-size: 22px;
   }
-
+  .baner {
+    margin-top: -20px;
+  }
   .banerTexto p {
     font-size: 16px;
   }
