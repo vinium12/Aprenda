@@ -52,6 +52,17 @@ function Perfil() {
     navigate("/configurar-perfil");
   };
 
+  const formatarCelular = (celular) => {
+    if (!celular) return "";
+    const cleaned = celular.replace(/\D/g, "");
+    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) - ${match[2]}-${match[3]}`;
+    }
+    return celular;
+  };
+
+
   return (
     <div className={styles.perfilContainer}>
       <div className={styles.topo}>
@@ -103,11 +114,12 @@ function Perfil() {
                   <strong>Email:</strong> {usuario.usuario.email}
                 </p>
                 <p>
-                  <strong>Celular:</strong> {usuario.usuario.celular}
+                  <strong>Celular:</strong> {formatarCelular(usuario.usuario.celular)}
                 </p>
+
                 <p>
                   <strong>Data de nascimento:</strong>{" "}
-                  {usuario.usuario.data_nascimento}
+                  {new Date(usuario.usuario.data_nascimento).toLocaleDateString("pt-BR")}
                 </p>
               </div>
             </div>
