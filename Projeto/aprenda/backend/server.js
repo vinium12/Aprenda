@@ -208,25 +208,51 @@ app.get('/subcategorias/:categoriaId', async (req, res) => {
   }
 });
 
-
+app.use('/arquivos', express.static(path.join(__dirname, 'assets/images')));
 const uploadPath = path.join(__dirname, 'assets/images');
+
+// Criação da pasta, caso ela não exista
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-// Configuração do Multer
+// Configuração do Multer para o armazenamento dos arquivos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadPath);
+    cb(null, uploadPath);  // Define o caminho onde os arquivos serão armazenados
   },
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const nomeImagem = `usuario_${req.user.id}${ext}`;
-    cb(null, nomeImagem);
+    const ext = path.extname(file.originalname);  // Obtém a extensão do arquivo
+    const nomeImagem = `usuario_${req.user.id}${ext}`;  // Define o nome do arquivo
+    cb(null, nomeImagem);  // Define o nome do arquivo no armazenamento
   }
 });
 
-const upload = multer({ storage });
+// Validação do tipo de arquivo (opcional, mas recomendada)
+const fileFilter = (req, file, cb) => {
+  const validTypes = ['.jpg', '.jpeg', '.png', '.gif', '.mp4','.pdf'];  // Tipos permitidos
+  const fileExt = path.extname(file.originalname).toLowerCase();  // Extensão do arquivo
+  const mimeType = file.mimetype;  // Tipo MIME do arquivo
+
+  console.log('Tipo de arquivo:', mimeType);  // Logando o tipo MIME do arquivo
+  // Verifica se o tipo de arquivo é válido
+  if (validTypes.includes(fileExt) || mimeType === 'video/mp4') {
+    cb(null, true);  // Arquivo permitido
+  } else {
+    cb(new Error('Arquivo inválido. Somente imagens JPG, JPEG, PNG, GIF ou vídeos MP4 são permitidos.'), false);
+  }
+};
+
+
+// Inicialização do Multer com as configurações
+const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter  // Aplica a validação de tipo de arquivo
+});
+
+module.exports = upload;
+
+
 
 // Rota exemplo para upload (proteja com autenticação como precisar)
 app.post('/upload-imagem', autenticarToken, upload.single('imagem'), async (req, res) => {
@@ -481,6 +507,78 @@ WHERE p.usuario_id = 11;
   } catch (erro) {
     console.error('Erro ao buscar parcerias:', erro);
     res.status(500).send('Erro no servidor');
+  }
+});
+
+
+
+
+app.post('/sessaoSalvar', autenticarToken, upload.single('arquivo'), async (req, res) => {
+  const { parceriaId, tema, descricao, linkConteudo } = req.body;
+  const arquivo = req.file ? req.file.filename : null;
+  const userId = req.user.id;
+
+  console.log('Dados recebidos:', { parceriaId, tema, descricao, linkConteudo, arquivo, userId });
+
+  try {
+    const db = await getDbConnection();
+
+    // Verifica se a parceria existe e pertence ao usuário
+    const [parceria] = await db.query(
+      'SELECT * FROM parcerias WHERE id = ? AND (usuario_id = ? OR parceiro_id = ?)',
+      [parceriaId, userId, userId]
+    );
+
+    if (parceria.length === 0) {
+      return res.status(400).json({ erro: 'Parceria não encontrada ou não pertence ao usuário' });
+    }
+
+    const [result] = await db.query(
+      'INSERT INTO sessoes (usuario_id, parceria_id, tema, descricao, link_conteudo, arquivo) VALUES (?, ?, ?, ?, ?, ?)',
+      [userId, parceriaId, tema, descricao, linkConteudo, arquivo]
+    );
+
+    console.log('Sessão cadastrada com sucesso', result);
+    res.status(201).json({ mensagem: 'Sessão cadastrada com sucesso', idSessao: result.insertId });
+  } catch (error) {
+    console.error('Erro ao cadastrar sessão:', error);
+    res.status(500).json({ erro: 'Erro ao cadastrar sessão' });
+  }
+});
+
+// Rota para buscar as sessões postadas por um parceiro específico
+app.get('/sessoes/:parceriaId', autenticarToken, async (req, res) => {
+  const { parceriaId } = req.params; // Obtendo o ID da parceria da URL
+  const userId = req.user.id; // Obtendo o ID do usuário autenticado
+
+  try {
+    const db = await getDbConnection();
+
+    // Verifica se a parceria existe e pertence ao usuário autenticado
+    const [parceria] = await db.query(
+      'SELECT * FROM parcerias WHERE id = ? AND (usuario_id = ? OR parceiro_id = ?)',
+      [parceriaId, userId, userId]
+    );
+
+    if (parceria.length === 0) {
+      return res.status(400).json({ erro: 'Parceria não encontrada ou não pertence ao usuário' });
+    }
+
+    // Busca as sessões associadas a essa parceria
+    const [sessoes] = await db.query(
+      'SELECT * FROM sessoes WHERE parceria_id = ?',
+      [parceriaId]
+    );
+
+    if (sessoes.length === 0) {
+      return res.status(404).json({ erro: 'Nenhuma sessão encontrada para esta parceria.' });
+    }
+
+    // Retorna as sessões encontradas
+    res.status(200).json(sessoes);
+  } catch (error) {
+    console.error('Erro ao buscar sessões:', error);
+    res.status(500).json({ erro: 'Erro ao buscar sessões postadas' });
   }
 });
 
