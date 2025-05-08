@@ -1,12 +1,13 @@
-import { useParams, useNavigate } from 'react-router-dom'; // Importe useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './PerfilParceiros.module.css';
 import defaultImg from '../../assets/images/Estudante.svg';
 import { useAuth } from '../../context/AuthContext';
+import CardHabilidade from "../../components/CardHabilidade";
 
 function PerfilParceiros() {
-  const { id } = useParams(); // ID do parceiro na URL
+  const { id } = useParams();
   const [parceiro, setParceiro] = useState(null);
   const [usuarioLogado, setUsuarioLogado] = useState({ habilidades: [], objetivos: [] });
   const [loading, setLoading] = useState(true);
@@ -14,67 +15,28 @@ function PerfilParceiros() {
   const { usuario } = useAuth();
   const [habilidadeSelecionada, setHabilidadeSelecionada] = useState('');
   const [objetivoSelecionado, setObjetivoSelecionado] = useState('');
-  const navigate = useNavigate(); // Adicionando useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!usuario || !usuario.id) return;
-  
+
     const carregarUsuarioLogado = async () => {
       try {
         const res = await axios.get(`http://localhost:3001/me/${usuario.id}`);
         const { usuario: dadosUsuario, habilidades, objetivos } = res.data;
-        setUsuarioLogado({
-          ...dadosUsuario,
-          habilidades,
-          objetivos
-        });
+        setUsuarioLogado({ ...dadosUsuario, habilidades, objetivos });
       } catch (erro) {
         console.error('Erro ao carregar usuário logado:', erro);
       }
     };
-  
+
     carregarUsuarioLogado();
   }, [usuario]);
-  
-  const fazerParceria = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Usuário não autenticado.');
-        return;
-      }
-  
-      if (!habilidadeSelecionada || !objetivoSelecionado) {
-        alert('Selecione uma habilidade e um objetivo.');
-        return;
-      }
-  
-      const payload = {
-        parceiroId: id,
-        habilidadeId: habilidadeSelecionada,
-        objetivoId: objetivoSelecionado,
-      };
-      console.log(payload)
-      const res = await axios.post('http://localhost:3001/fazer-parceria', payload, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-  
-      alert('Parceria registrada com sucesso!');
-      navigate('/homePosLogin'); // Redireciona para a página HomePosLogin após sucesso
-    } catch (error) {
-      console.error('Erro ao criar parceria:', error.message, error.stack);
-      alert('Erro ao registrar parceria.');
-    }
-  };
 
   useEffect(() => {
     const carregarPerfilParceiro = async () => {
       try {
         const res = await axios.get(`http://localhost:3001/perfil-parceiro/${id}`);
-        console.log("Parceiro:", res.data);
-        
         setParceiro(res.data);
       } catch (erro) {
         console.error('Erro ao carregar perfil do parceiro:', erro);
@@ -87,60 +49,94 @@ function PerfilParceiros() {
     carregarPerfilParceiro();
   }, [id]);
 
+  const fazerParceria = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Usuário não autenticado.');
+        return;
+      }
+
+      if (!habilidadeSelecionada || !objetivoSelecionado) {
+        alert('Selecione uma habilidade e um objetivo.');
+        return;
+      }
+
+      const payload = {
+        parceiroId: id,
+        habilidadeId: habilidadeSelecionada,
+        objetivoId: objetivoSelecionado,
+      };
+
+      await axios.post('http://localhost:3001/fazer-parceria', payload, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      alert('Parceria registrada com sucesso!');
+      navigate('/homePosLogin');
+    } catch (error) {
+      console.error('Erro ao criar parceria:', error.message, error.stack);
+      alert('Erro ao registrar parceria.');
+    }
+  };
+
   if (loading) return <p>Carregando perfil do parceiro...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className={styles.container}>
-      <h1>Perfil do Parceiro</h1>
-
+    <div className={styles.perfilContainer}>
+      <div className={styles.topo}>
+        <h2 className={styles.titulo}>Perfil do Parceiro</h2>
+      </div>
+  
       {parceiro ? (
         <>
-          <div className={styles.imagemContainer}>
-            <img
-              src={parceiro.usuario.imagem_url || defaultImg}
-              alt="Imagem do parceiro"
-              className={styles.imagemPerfil}
+          <div className={styles.cardPerfil}>
+            <div className={styles.imagemENome}>
+              <div className={styles.imagemContainer}>
+                <img
+                  src={parceiro.usuario.imagem_url || defaultImg}
+                  alt="Imagem do parceiro"
+                  className={styles.imagemPerfil}
+                />
+              </div>
+  
+              <div className={styles.infoUsuario}>
+                <h3 className={styles.nome}>{parceiro.usuario.nome_parceiro}</h3>
+                <h1 className={styles.username}>{parceiro.usuario.nome_usuario}</h1>
+              </div>
+            </div>
+  
+            <div className={styles.btnContainer}>
+              <button className={styles.btnParceria} onClick={fazerParceria}>
+                Fazer Parceria
+              </button>
+            </div>
+          </div>
+  
+          <div className={styles.secaoCards}>
+            <h3 className={styles.subtitulo}>Habilidades para ensinar:</h3>
+            <CardHabilidade
+              dados={parceiro.habilidades}
+              tipo="ensinar"
+              categorias={parceiro.categorias}
+              subcategorias={parceiro.subcategorias}
             />
           </div>
-
-          <div className={styles.dadosPerfil}>
-            <p><strong>Nome de usuário:</strong> {parceiro.usuario.nome_usuario}</p>
+  
+          <div className={styles.secaoCards}>
+            <h3 className={styles.subtitulo}>Objetivos de aprendizagem:</h3>
+            <CardHabilidade
+              dados={parceiro.objetivos}
+              tipo="aprender"
+              categorias={parceiro.categorias}
+              subcategorias={parceiro.subcategorias}
+            />
           </div>
-
-          <div className={styles.habilidades}>
-            <h3>Habilidades para ensinar:</h3>
-            {parceiro.habilidades.length > 0 ? (
-              <ul>
-                {parceiro.habilidades.map((hab, i) => (
-                  <li key={i}>
-                    {hab.categoria_nome} - {hab.subcategoria_nome}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Este parceiro ainda não adicionou habilidades.</p>
-            )}
-          </div>
-
-          <div className={styles.objetivos}>
-            <h3>Objetivos de aprendizagem:</h3>
-            {parceiro.objetivos.length > 0 ? (
-              <ul>
-                {parceiro.objetivos.map((obj, i) => (
-                  <li key={i}>
-                    {obj.categoria_nome} - {obj.subcategoria_nome}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Este parceiro ainda não adicionou objetivos.</p>
-            )}
-          </div>
-          
-          <div className={styles.selecaoParceria}>
-            <div>
-              <label>Escolha seu objetivo:</label>
+  
+          <div className={styles.selectsContainer}>
+            <div className={styles.selectBox}>
+              <label>Seu objetivo:</label>
               <select
                 value={objetivoSelecionado}
                 onChange={(e) => setObjetivoSelecionado(e.target.value)}
@@ -153,9 +149,9 @@ function PerfilParceiros() {
                 ))}
               </select>
             </div>
-
-            <div>
-              <label>Escolha a habilidade do parceiro:</label>
+  
+            <div className={styles.selectBox}>
+              <label>Habilidade do parceiro:</label>
               <select
                 value={habilidadeSelecionada}
                 onChange={(e) => setHabilidadeSelecionada(e.target.value)}
@@ -169,17 +165,13 @@ function PerfilParceiros() {
               </select>
             </div>
           </div>
-
-          <button className={styles.btnParceria} onClick={fazerParceria}>
-            Fazer Parceria
-          </button>
-
         </>
       ) : (
         <p>Perfil do parceiro não encontrado.</p>
       )}
     </div>
   );
+  
 }
 
 export default PerfilParceiros;
