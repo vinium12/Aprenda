@@ -133,9 +133,6 @@
   position: relative;
 }
 
-
-
-
 .BotaoHeader::after {
   content: "";
   position: absolute;

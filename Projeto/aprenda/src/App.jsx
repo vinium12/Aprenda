@@ -16,6 +16,7 @@ import Perfil from "./pages/Perfil/Perfil";
 import PerfilParceiros from "./pages/Perfil/PerfilParceiros";
 import Sessao from "./pages/Sessao/Sessao";
 import Header from "./components/Header";
+import Scroll from "./components/Scroll";
 import Footer from "./components/Footer";
 import "./App.css";
 
@@ -70,6 +71,7 @@ function App() {
       />
 
       <main>
+      <Scroll/>
         <Routes>
           {/* Rotas públicas */}
           <Route path="/login" element={<Login />} />

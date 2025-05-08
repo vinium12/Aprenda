@@ -1,48 +1,56 @@
 .container {
-    display: flex;
-    justify-content: space-between; 
-    margin-bottom: 20px;
-  }
-  
-  .card {
-    min-width: 250px;
-    height: 150px;
-    padding: 16px;
-    border-radius: 8px;
-    color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cardEnsinar {
-    background-color: #DBEAFE; /* Azul para ensinar */
-    color: #1F2C9F;
-  }
-  
-  .cardAprender {
-    background-color: #DCFCE7; /* Verde para aprender */
-    color: #14532D;
-  }
-
-  .paragrafo{
-    color: black;
-  }
-  
-.paragrafoEnsinar{
-  color: #1F2C9F;
+  display: flex;
+  gap: clamp(10px, 1.04vw, 20px);/* 20px -> 1.04vw */
+  margin-bottom: clamp(10px, 1.04vw, 20px);
 }
 
-  .cardVazio {
-    background-color: #f8f9fa;
-    color: #6c757d;
-    padding: 16px;
-    margin-top: 10px;
-    border: 1px dashed #ccc;
-    height: 180px;
+.card {
+  width: clamp(150px, 13.02vw, 250px); 
+  min-height: clamp(100px, 7.81vw, 150px);   /* 150px -> 7.81vw */
+  padding: clamp(8px, 0.83vw, 16px);         /* 16px -> 0.83vw */
+  border-radius: clamp(4px, 0.42vw, 8px);    /* 8px -> 0.42vw */
+  color: #fff;
+  box-shadow: 0 clamp(1px, 0.10vw, 2px) clamp(3px, 0.31vw, 6px) rgba(0, 0, 0, 0.1);
+}
+
+.cardEnsinar {
+  background-color: #DBEAFE;
+  color: #1F2C9F;
+  overflow: hidden;
+}
+
+.cardAprender {
+  background-color: #DCFCE7;
+  color: #14532D;
+}
+
+.paragrafoEnsinar {
+  font-size: clamp(12px, 0.73vw, 14px); /* 14px -> 0.73vw */
+}
+
+.cardVazio {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  padding: clamp(8px, 0.83vw, 16px);
+  margin-top: clamp(5px, 0.52vw, 10px);
+  border: 1px dashed #ccc;
+  height: clamp(120px, 9.38vw, 180px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: clamp(10px, 1.04vw, 20px);
+  border-radius: clamp(4px, 0.42vw, 8px);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .card{
+    width: 100%;
+  }
+
+  .container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    text-align: center;
   }
-  
+
+}

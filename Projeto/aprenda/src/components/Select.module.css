@@ -1,9 +1,15 @@
-.campo{
-    width: 200px;
-    height: 30px;
-    font-family: "Montserrat", sans-serif;;
-    font-weight: 500;
-    font-size: 15px;
-    border: 1px solid #E5E7EB;
-    border-radius: 3px;
+.campo {
+  width: 200px;
+  height: 30px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 3px;
+}
+
+@media (max-width: 480px) {
+  .campo {
+    width: 100%;
+  }
 }

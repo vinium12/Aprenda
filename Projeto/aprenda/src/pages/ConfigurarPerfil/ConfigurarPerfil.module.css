@@ -1,26 +1,27 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-main{
-  background-color: #F3F6FF;
+main {
+  background-color: #f3f6ff;
 }
 
-.body{
-    display: flex;
-    font-family: "Montserrat", sans-serif;
-    justify-content: center;
-    align-items: center;
-    min-height: 95vh;
-    margin-top:  clamp(60px, 10vw, 75px);;
+.body {
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  justify-content: center;
+  align-items: center;
+  min-height: 95vh;
+  margin-top: clamp(60px, 10vw, 75px);
 }
 
-.form{
+.form {
   display: flex;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
   height: 60vh;
+  overflow: hidden;
 }
 
 .Esquerda {
@@ -31,24 +32,24 @@ main{
   justify-content: center;
   color: var(--gelo);
   width: 40vw;
-  background-color: #2C3DDC;
-  border-radius: 10px  0px  0px 10px;
+  background-color: #2c3ddc;
+  border-radius: 10px 0px 0px 10px;
   padding: 50px;
   height: 100%;
 }
 
-.Direita{
-    background-color: #FBFCFF;
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    height: 100%;
-    padding: 15px;
-    color: #000217;
-    border-radius:  0px 10px 10px 10px;
+.Direita {
+  background-color: #fbfcff;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 100%;
+  padding: 15px;
+  color: #000217;
+  border-radius: 0px 10px 10px 10px;
 }
 
-.Direita h3{
+.Direita h3 {
   font-weight: 500;
 }
 
@@ -58,26 +59,26 @@ main{
   margin-top: 30px;
 }
 
-.filtros{
+.filtros {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
-.bloco{
+.bloco {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
 
-.btnHabilidades{
+.btnHabilidades {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #2C3DDC;
+  background-color: #2c3ddc;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);    
+  font-size: clamp(10px, 2vw, 14px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -86,45 +87,96 @@ main{
   height: 30px;
 }
 
-.btnHabilidades:hover{
+.btnHabilidades:hover {
   background-color: #1f2dbf;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btns{
+.btns {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.bloco textarea{
+.botoesEtapas {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.btnsVoltar {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #d84a4a;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  height: 35px;
+}
+
+.btnsVoltar:hover {
+  background-color: #b93c3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btnsFinalizar {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: var(--gelo);
+  background-color: #2c3ddc;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(10px, 2vw, 14px);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  height: 35px;
+}
+
+.btnsFinalizar:hover {
+  background-color: #1f2dbf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bloco textarea {
   width: 100%;
   height: 90px;
-  margin: 10px 0 ;
+  margin: 10px 0;
   font-size: 15px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   border-radius: 3px;
   padding: 5px;
   resize: none;
   font-family: "Montserrat", sans-serif;
 }
 
-.finalizar{
+.finalizar {
   margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.finalizar button{
+.finalizar button {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #2C3DDC;
+  background-color: #2c3ddc;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);    
+  font-size: clamp(10px, 2vw, 14px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -133,14 +185,14 @@ main{
   height: 35px;
 }
 
-.btnProximaEtapa{
+.btnProximaEtapa {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
-  background-color: #2C3DDC;
+  background-color: #2c3ddc;
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);    
+  font-size: clamp(10px, 2vw, 14px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -149,24 +201,24 @@ main{
   height: 35px;
 }
 
-.btnProximaEtapa:hover{
-  background-color: #222EB3;
+.btnProximaEtapa:hover {
+  background-color: #222eb3;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.finalizar button:hover{
-  background-color: #222EB3;
+.finalizar button:hover {
+  background-color: #222eb3;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.habilidades{
+.habilidades {
   display: flex;
   gap: 20px;
 }
 
-.cabecalho{
+.cabecalho {
   display: flex;
   font-family: "Montserrat", sans-serif;
   justify-content: space-between;
@@ -174,28 +226,136 @@ main{
   margin-bottom: 15px;
 }
 
-.cabecalho p{
-  color: #ACAFB2;
+.cabecalho p {
+  color: #acafb2;
 }
 
-.btnObjetivos{
+.btnObjetivos {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: var(--gelo);
   border: none;
   border-radius: 6px;
-  font-size: clamp(10px, 2vw, 14px);    
+  font-size: clamp(10px, 2vw, 14px);
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
   width: 200px;
   height: 30px;
-  background-color: #16A34A;
+  background-color: #16a34a;
 }
 
-.btnObjetivos:hover{
-  background-color: #09932D;
+.btnObjetivos:hover {
+  background-color: #09932d;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .body {
+    flex-direction: column;
+    margin-top: clamp(30px, 8vw, 60px);
+  }
+
+  .form {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+  .Esquerda,
+  .Direita {
+    width: 100%;
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  .titulo {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .btnHabilidades,
+  .btnsVoltar,
+  .btnsFinalizar,
+  .btnProximaEtapa,
+  .finalizar button,
+  .btnObjetivos {
+    width: 100%;
+    height: 40px;
+    font-size: clamp(12px, 4vw, 14px);
+  }
+
+  .botoesEtapas {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .habilidades {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Direita {
+    padding: 20px;
+  }
+
+  .Direita h3{
+    font-size: 16px;
+  }
+
+  
+  .Direita h2{
+    font-size: 18px;
+  }
+
+  .botoesEtapas{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .Esquerda img{
+    display: none;
+  }
+
+  .titulo {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  .form {
+    width: 95%;
+    margin-bottom: 20px;
+  }
+
+  .finalizar button,
+  .btnProximaEtapa,
+  .btnHabilidades,
+  .btnsVoltar,
+  .btnsFinalizar,
+  .btnObjetivos {
+    width: 100%;
+    font-size: clamp(11px, 4vw, 13px);
+    height: 35px;
+  }
+
+  .bloco textarea {
+    font-size: 14px;
+    height: 80px;
+  }
+
+  .cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cabecalho p {
+    margin-top: 8px;
+  }
 }
