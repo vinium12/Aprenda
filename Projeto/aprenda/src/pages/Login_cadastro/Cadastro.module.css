@@ -15,9 +15,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
   overflow: hidden;
-  background-color: #3d4bcb;
+  background-color: #F3F6FF;
 }
 
 .leftPanel {
@@ -90,6 +89,7 @@
   width: 100%;
   max-width: 25rem;
   height: 31.25rem;
+  box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .form {
@@ -221,4 +221,90 @@ ul {
 .toggleSenha img {
   width: 20px;
   height: 20px;
+}
+
+
+@media (max-width: 921px) {
+
+  .leftPanel h2{
+    font-size: 40px;
+  }
+
+  .leftPanel{
+    justify-content: center;
+  }
+
+  .wave{
+    display: none;
+  } 
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    flex-direction: column-reverse;
+  }
+
+  .leftPanel,
+  .rightPanel {
+    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .leftPanel {
+    align-items: center;
+    text-align: center;
+  }
+
+  .leftPanel img {
+    margin-bottom: 2rem;
+    width: 40%;
+    height: auto;
+  }
+
+  .leftPanel button {
+    align-self: center;
+    padding: 0.5rem 2rem;
+  }
+
+  .rightPanel {
+    margin-top: 1rem;
+  }
+
+  .wave {
+    display: none; /* Esconde para simplificar o layout */
+  }
+}
+
+@media (max-width: 480px) {
+  .form h2 {
+    font-size: 1.8rem;
+  }
+
+  .leftPanel h2 {
+    font-size: 2rem;
+  }
+
+  .form p,
+  .leftPanel p {
+    font-size: 0.95rem;
+  }
+
+  .BotaoDeContinuar,
+  .googleButton {
+    font-size: 0.9rem;
+  }
+
+  .toggleSenha img {
+    width: 18px;
+  }
+
+  .senhaWrapper input {
+    font-size: 0.9rem;
+  }
 }
