@@ -86,7 +86,7 @@ function Login({ onSwitch }) {
               alt="Logo"
               className={styles.logo}
             />
-            <h2>Bem vindo de volta!</h2>
+            <h2>Bem-vindo de volta!</h2>
             <p>
               Ainda não tem uma conta? Crie uma agora mesmo e comece a aprender
               com a gente.

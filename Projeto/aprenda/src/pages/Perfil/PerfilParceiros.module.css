@@ -1,8 +1,12 @@
+.body{
+  font-family: "Montserrat", sans-serif;
+}
+
 .perfilContainer {
   padding: 2rem;
   background: #f8f9fc;
   min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .titulo {
